@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 // import { libraryData } from '@/constant/services'
 import Source from './Source'
-import { RootState } from '@/stores/store'
+import { RootState } from '@/store/store'
 
 // interface PlaylistsProps {}
 

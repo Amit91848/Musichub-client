@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@/stores/store'
+import { RootState } from '@/store/store'
 
 import PlaylistRow from './services/PlaylistRow'
 

@@ -4,8 +4,8 @@ import * as React from 'react'
 import Layout from '@/components/layout/Layout'
 import Playlists from '@/components/LibraryPlaylist/Playlists'
 
-import { updatePlaylists } from '@/stores/reducers/library'
-import { useAppDispatch } from '@/stores/store'
+import { updatePlaylists } from '@/store/reducers/library'
+import { useAppDispatch } from '@/store/store'
 
 export default function LibraryPage() {
     const dispatch = useAppDispatch()

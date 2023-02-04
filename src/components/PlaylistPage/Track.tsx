@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { BsFillPlayFill } from 'react-icons/bs'
@@ -5,8 +6,8 @@ import { Audio } from 'react-loader-spinner'
 
 import clsxm from '@/lib/clsxm'
 
-import { play } from '@/stores/reducers/player'
-import { useAppDispatch } from '@/stores/store'
+import { play } from '@/store/reducers/player'
+import { useAppDispatch } from '@/store/store'
 
 import { CommonTracks } from '@/constant/services'
 
@@ -34,7 +35,6 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
     }
 
     function pauseTrack() {
-        //
         isActive = false
     }
 
@@ -98,11 +98,19 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
                 </div>
                 <div className='ml-auto flex w-1/4 items-center justify-between text-sm'>
                     <div className='cursor-pointer'>
-                        <ServiceIcon
-                            source={track.source}
-                            size={23}
-                            className='hidden duration-300 group-hover:flex'
-                        />
+                        <Link
+                            href={
+                                track.source === 'spotify'
+                                    ? `https://open.spotify.com/track/${track.id}`
+                                    : ``
+                            }
+                        >
+                            <ServiceIcon
+                                source={track.source}
+                                size={23}
+                                className='hidden duration-300 group-hover:flex'
+                            />
+                        </Link>
                     </div>
                     <div className='cursor-pointer'>
                         <BsThreeDotsVertical

@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import '@/styles/globals.css'
 
-import { persistor, store } from '@/stores/store'
+import { persistor, store } from '@/store/store'
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 // import '@/styles/colors.css';
 

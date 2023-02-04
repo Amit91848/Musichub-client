@@ -7,8 +7,8 @@ import { FaSyncAlt } from 'react-icons/fa'
 import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 
-import { loadTracksOnPlaylist } from '@/stores/reducers/library'
-import { RootState, useAppDispatch } from '@/stores/store'
+import { loadTracksOnPlaylist } from '@/store/reducers/library'
+import { RootState, useAppDispatch } from '@/store/store'
 
 import { CommonPlaylist, CommonTracks } from '@/constant/services'
 

@@ -62,31 +62,34 @@ export class SpotifyWebPlaybackSDK {
         return this.player?.pause()
     }
 
-    async play() {
+    load(trackId: string) {
         const url = "https://api.spotify.com/v1/me/player/play?device_id=" + this.deviceId;
 
         console.log('putting play')
-        await fetch(url, {
+        fetch(url, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + this.accessToken
             },
             body: JSON.stringify({
-                "uris": ["spotify:track:4uLU6hMCjMI75M1A2tKUQC"]
+                uris: [`spotify:track:${trackId}`],
+                position_ms: 0
             })
         })
             .then((response) => console.log('response from play: ', response))
             .catch(error => {
-                // console.error(error);
+                //
+                console.log('error from play ', error)
             });
     }
 
-    load() {
-        return 'abc'
+    play() {
+        return this.player?.resume();
     }
 
     connect_to_device() {
+        console.log('connecting to device');
         fetch("https://api.spotify.com/v1/me/player", {
             method: "PUT",
             body: JSON.stringify({
@@ -101,10 +104,8 @@ export class SpotifyWebPlaybackSDK {
 
     addListeners() {
         this.player?.addListener('ready', e => {
-            console.log('Player read with device id', e.device_id);
             this.setDeviceId(e.device_id);
             this.connect_to_device()
-            this.play()
         })
         this.player?.addListener("not_ready", ({ device_id }) => {
             console.log("Device ID has gone offline", device_id);

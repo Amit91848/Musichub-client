@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@/stores/store'
+import { RootState } from '@/store/store'
 
 import { CommonTracks, service } from '@/constant/services'
 
