@@ -1,4 +1,7 @@
-import { fetchAccessToken, getDeviceId } from ".";
+import { changeTrack } from "@/store/reducers/player";
+import { useAppDispatch } from "@/store/store";
+
+import { fetchAccessToken } from ".";
 
 const jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I2YjNjOTg4OTdlOGRlYjE5ZTc0YzIiLCJpYXQiOjE2NzI5MjM0MjYsImV4cCI6MTY3NTUxNTQyNn0.aT7seVEkhYwKJ4IBeWhq_D2v74kPN_nDLR9rqbW0Zqw'
 
@@ -9,6 +12,7 @@ export class SpotifyWebPlaybackSDK {
     accessToken?: string | null;
     deviceId?: string | null;
     timer?: string | null;
+    position?: number;
 
     constructor(playerName: string, volume: number) {
         this.playerName = playerName;
@@ -34,6 +38,7 @@ export class SpotifyWebPlaybackSDK {
                 name: this.playerName,
                 volume: this.volume | 1
             })
+            console.log('initialized player')
 
             this.addListeners();
         }
@@ -52,6 +57,7 @@ export class SpotifyWebPlaybackSDK {
     async fetchAndSetToken(cb) {
         return this.fetchToken()
             .then(token => {
+                console.log('setting accesstoken ', token)
                 this.setAccessToken(token);
                 if (cb) cb(token);
             })
@@ -59,13 +65,19 @@ export class SpotifyWebPlaybackSDK {
     }
 
     pause() {
+        this.player?.getCurrentState().then(state => {
+            if (!state) {
+                console.log('User is not playing music through the Web Playback SDK')
+                return
+            };
+            this.position = state.position
+        })
         return this.player?.pause()
     }
 
-    load(trackId: string) {
+    async load(trackId: string, position: number = 0) {
+        this.fetchAndSetToken;
         const url = "https://api.spotify.com/v1/me/player/play?device_id=" + this.deviceId;
-
-        console.log('putting play')
         fetch(url, {
             method: "PUT",
             headers: {
@@ -74,12 +86,11 @@ export class SpotifyWebPlaybackSDK {
             },
             body: JSON.stringify({
                 uris: [`spotify:track:${trackId}`],
-                position_ms: 0
+                position_ms: position
             })
         })
-            .then((response) => console.log('response from play: ', response))
+            .then((response) => console.log('song played'))
             .catch(error => {
-                //
                 console.log('error from play ', error)
             });
     }
@@ -99,7 +110,7 @@ export class SpotifyWebPlaybackSDK {
             headers: new Headers({
                 Authorization: "Bearer " + this.accessToken,
             }),
-        }).then((response) => console.log('connect to device response: ', response));
+        }).then((response) => console.log('connected to device'));
     };
 
     addListeners() {
@@ -111,9 +122,11 @@ export class SpotifyWebPlaybackSDK {
             console.log("Device ID has gone offline", device_id);
         });
 
-        this.player?.addListener("player_state_changed", (state) => {
-            // console.log('state: ', state);
+        this.player?.removeListener("player_state_changed");
+        this.player?.addListener("player_state_changed", state => {
+            this.handleStateChange(state);
         });
+
         this.player?.addListener('initialization_error', e => {
             console.error('Initialization error: ', e);
         });
@@ -126,5 +139,11 @@ export class SpotifyWebPlaybackSDK {
         this.player?.addListener("playback_error", e => {
             console.error("playback_error", e);
         });
+    }
+
+    handleStateChange(state: Spotify.PlaybackState) {
+        if (!state.paused && !state.loading && state.track_window.previous_tracks.find(x => x.id === state.track_window.current_track.id)) {
+            console.log('song ended in handleState change')
+        }
     }
 }

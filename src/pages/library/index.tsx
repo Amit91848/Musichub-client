@@ -9,7 +9,7 @@ import { useAppDispatch } from '@/store/store'
 
 export default function LibraryPage() {
     const dispatch = useAppDispatch()
-    async function getAllPlaylists() {
+    const getAllPlaylists = async () => {
         const res = await axios.get('http://localhost:4040/api/playlists', {
             withCredentials: true,
         })
@@ -27,6 +27,7 @@ export default function LibraryPage() {
     }, [])
     return (
         <Layout>
+            <button onClick={getAllPlaylists}> Sync </button>
             <Playlists />
         </Layout>
     )

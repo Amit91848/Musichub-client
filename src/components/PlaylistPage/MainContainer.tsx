@@ -8,6 +8,7 @@ import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 
 import { loadTracksOnPlaylist } from '@/store/reducers/library'
+import { play } from '@/store/reducers/player'
 import { RootState, useAppDispatch } from '@/store/store'
 
 import { CommonPlaylist, CommonTracks } from '@/constant/services'
@@ -17,29 +18,31 @@ import Track from './Track'
 export const MainContainer: React.FC = () => {
     const router = useRouter()
     const { source, playlistId } = router.query
-    const dispatch = useAppDispatch()
-    const [tracks, setTracks] = useState<CommonTracks[]>()
-    const playlists = useSelector((state: RootState) => state.library.playlists)
+    const sourceCapital = useRef('')
 
+    const [tracks, setTracks] = useState<CommonTracks[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
+    const dispatch = useAppDispatch()
+    const playlists = useSelector((state: RootState) => state.library.playlists)
     const playerPlaylist = useSelector(
-        (state: RootState) => state.player.playlist
+        (state: RootState) => state.player.currentTrack
     )
-
+    const currentPlaylist: CommonPlaylist = playlists[source]?.find(
+        (p: CommonPlaylist) => p.playlistId === playlistId
+    )
     const currentTrack = useSelector(
         (state: RootState) => state.player.currentTrack
     )
 
-    const sourceCapital = useRef('')
-    const playlist: CommonPlaylist = playlists[source]?.find(
-        (p: CommonPlaylist) => p.playlistId === playlistId
-    )
+    const imgUrl = currentPlaylist?.img[0].url
+    const width = currentPlaylist?.img[0].width
+    const loadedTracks = currentPlaylist?.tracks
 
-    const loadedTracks = playlist?.tracks
-
-    const imgUrl = playlist?.img[0].url
-    const width = playlist?.img[0].width
+    const handlePlay = (track: CommonTracks) => {
+        console.log('called handle play')
+        dispatch(play({ track, playlist: currentPlaylist }))
+    }
 
     const fetchTracks = async () => {
         setIsLoading(true)
@@ -63,6 +66,8 @@ export const MainContainer: React.FC = () => {
 
     // Use tracks in redux or fetch from server
     useEffect(() => {
+        if (currentPlaylist?.name)
+            document.title = `Music Hub | ${currentPlaylist.name}`
         if (source != undefined) {
             sourceCapital.current =
                 source[0]?.toUpperCase() + source?.substring(1)
@@ -73,6 +78,7 @@ export const MainContainer: React.FC = () => {
             }
         }
     }, [playlistId, source])
+
     return (
         <div className='flex h-[calc(100vh_-_66px_-_80px)] w-full overflow-scroll bg-darkSupport py-10 text-lightSupport transition'>
             <div className='mx-auto h-fit w-[95%] rounded-lg bg-dark p-9'>
@@ -87,20 +93,25 @@ export const MainContainer: React.FC = () => {
                     </div>
                     <div className='ml-6 flex flex-col justify-between '>
                         <div className=' mt-4 h-[3rem] cursor-pointer whitespace-pre-wrap font-eliteSpecial text-2xl text-light transition duration-300 hover:text-white lg:text-[2.8rem]'>
-                            {playlist?.name}
+                            {currentPlaylist?.name}
                         </div>
                         <div>
                             <div className=''>
                                 {sourceCapital.current} Playlist
                             </div>
                             <div className='text-sm'>
-                                {playlist?.total} Tracks
+                                {currentPlaylist?.total} Tracks
                             </div>
                         </div>
                         <div className='w-dit h-fit w-24'>
                             {/* <AiFillPlayCircle color='#a76af7' size={75} /> */}
                             <div className='w-fit cursor-pointer rounded-full  bg-gradient-to-r from-violet-700 to-fuchsia-700 p-4 transition duration-300 hover:scale-110'>
-                                <BsFillPlayFill size={35} />
+                                <BsFillPlayFill
+                                    onClick={() => {
+                                        handlePlay(tracks[0])
+                                    }}
+                                    size={35}
+                                />
                             </div>
                         </div>
                     </div>
@@ -123,10 +134,11 @@ export const MainContainer: React.FC = () => {
                         <Track
                             isActive={
                                 track.id === currentTrack.id
-                                // playlist.playlistId === playerPlaylist.id
+                                // currentPlaylist.playlistId === playerPlaylist.id
                             }
                             key={track.id}
                             track={track}
+                            handlePlay={handlePlay}
                         />
                     ))
                 ) : (

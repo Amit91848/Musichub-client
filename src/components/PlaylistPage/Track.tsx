@@ -1,25 +1,30 @@
 import Link from 'next/link'
 import React from 'react'
-import { BsThreeDotsVertical } from 'react-icons/bs'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { Audio } from 'react-loader-spinner'
 
 import clsxm from '@/lib/clsxm'
 
-import { play } from '@/store/reducers/player'
+import { addToQueue } from '@/store/reducers/player'
 import { useAppDispatch } from '@/store/store'
 
 import { CommonTracks } from '@/constant/services'
 
 import ArtistLink from './ArtistLink'
+import Dropdown from './Dropdown'
 import ServiceIcon from '../ServiceIcon/ServiceIcon'
 
 interface TrackProps {
     track: CommonTracks
     isActive: boolean
+    handlePlay: (track: CommonTracks) => void
 }
 
-export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
+export const Track: React.FC<TrackProps> = ({
+    track,
+    isActive,
+    handlePlay,
+}) => {
     const { url } = track.img[2]
 
     const dispatch = useAppDispatch()
@@ -29,13 +34,12 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
         return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
     }
 
-    function playTrack() {
-        // dispatch(toggleIsPlaying())
-        dispatch(play(track))
-    }
-
     function pauseTrack() {
         isActive = false
+    }
+
+    const handleAddToQueue = () => {
+        dispatch(addToQueue(track))
     }
 
     return (
@@ -48,7 +52,7 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
                     >
                         <div
                             className={clsxm(
-                                'absolute z-10 flex cursor-pointer transition duration-200' &&
+                                'align-center absolute z-10 flex cursor-pointer justify-center transition duration-200' &&
                                     !isActive &&
                                     'opacity-0 group-hover:opacity-100'
                             )}
@@ -57,14 +61,16 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
                             {!isActive ? (
                                 <BsFillPlayFill
                                     className='cursor-pointer'
-                                    onClick={playTrack}
+                                    onClick={() => {
+                                        handlePlay(track)
+                                    }}
                                     color='#f7f7f7'
                                     size={35}
                                 />
                             ) : (
-                                <div onClick={pauseTrack} className=''>
+                                <div onClick={pauseTrack} className='mt-1'>
                                     <Audio
-                                        height='28'
+                                        height='27'
                                         width='35'
                                         color='#fff'
                                         ariaLabel='audio-loading'
@@ -82,15 +88,17 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
                     </div>
 
                     <div className='flex flex-col items-start'>
-                        <div className='w-52 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-light'>
+                        <div className='overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-light'>
                             {track.title}
                         </div>
-                        <div className='block w-52 overflow-hidden text-ellipsis whitespace-nowrap'>
-                            {track.artist.map((a) => (
+                        <div className='block overflow-hidden text-ellipsis whitespace-nowrap'>
+                            {track.artist.map((a, index) => (
                                 <ArtistLink
                                     key={a.id}
                                     artist={a}
                                     source={track.source}
+                                    length={track.artist.length}
+                                    index={index}
                                 />
                             ))}
                         </div>
@@ -113,10 +121,7 @@ export const Track: React.FC<TrackProps> = ({ track, isActive }) => {
                         </Link>
                     </div>
                     <div className='cursor-pointer'>
-                        <BsThreeDotsVertical
-                            className='hidden duration-300 group-hover:flex'
-                            size={22}
-                        />
+                        <Dropdown handleAddToQueue={handleAddToQueue} />
                     </div>
                     <div>{millisToMinutesAndSeconds(track.duration)}</div>
                 </div>
