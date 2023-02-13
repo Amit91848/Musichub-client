@@ -22,7 +22,7 @@ const Sidebar = () => {
                         <SidebarNav
                             Icon={ImMusic}
                             name='Library'
-                            selected={router.pathname.includes('/library')}
+                            selected={router.pathname === '/library'}
                         />
                     </Link>
                     <Link href='/library/search'>
