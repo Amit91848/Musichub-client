@@ -40,7 +40,6 @@ export const MainContainer: React.FC = () => {
     const loadedTracks = currentPlaylist?.tracks
 
     const handlePlay = (track: CommonTracks) => {
-        console.log('called handle play')
         dispatch(play({ track, playlist: currentPlaylist }))
     }
 

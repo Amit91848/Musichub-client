@@ -9,10 +9,12 @@ interface indexProps {
 
 export const index: React.FC<indexProps> = ({ source }) => {
     return (
-        <Layout>
+        <>
+            {/* <Layout> */}
             <RecentSearchContainer />
             {source}
-        </Layout>
+            {/* </Layout> */}
+        </>
     )
 }
 

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@/store/store'
+import { RootState, useAppDispatch } from '@/store/store'
 
-import { CommonTracks, service } from '@/constant/services'
+import { CommonPlaylist, CommonTracks, service } from '@/constant/services'
 
 import Track from '../PlaylistPage/Track'
+import { play } from '@/store/reducers/player'
 
 export interface SpotifyCommonTracks {
     href: string
@@ -36,6 +37,13 @@ export const SearchTracks: React.FC<SpotifySearchTracksProps> = ({
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [tracks, setTracks] = useState<CommonTracks[]>([])
     const [next, setNext] = useState('')
+
+    const dispatch = useAppDispatch()
+
+    const handlePlay = (track: CommonTracks) => {
+        dispatch(play({ track, searchTracks: tracks }))
+    }
+
     async function fetchSpotifyTracks() {
         setIsLoading(true)
         const response = await axios.get(
@@ -73,6 +81,7 @@ export const SearchTracks: React.FC<SpotifySearchTracksProps> = ({
                 {!isLoading ? (
                     tracks?.map((track) => (
                         <Track
+                            handlePlay={handlePlay}
                             isActive={currentTrack.id === track.id}
                             track={track}
                             key={track.id}

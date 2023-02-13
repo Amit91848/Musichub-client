@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Sidebar from '../Sidebar/Sidebar'
-import PlayerContainer from '../SongPlayer/PlayerContainer'
+import SpotifyPlayer from '../SongPlayer/SpotifyPlayer'
 import Header from './Header'
+import Player from '../SongPlayer/Player'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    // Put Header or Footer Here
     return (
         <>
             <div className='h-screen overflow-y-hidden bg-dark'>
@@ -13,7 +13,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <Sidebar />
                     {children}
                 </div>
-                <PlayerContainer />
+                {/* <SpotifyPlayer /> */}
+                <Player />
             </div>
         </>
     )

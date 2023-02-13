@@ -15,7 +15,7 @@ const persistConfig = {
 const combinedReducer = combineReducers({
     player,
     library,
-    user
+    user,
 })
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

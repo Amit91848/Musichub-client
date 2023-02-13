@@ -5,6 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import '@/styles/globals.css'
 
 import { persistor, store } from '@/store/store'
+import Layout from '@/components/layout/Layout'
+import { useRouter } from 'next/router'
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 // import '@/styles/colors.css';
 
@@ -14,11 +16,18 @@ import { persistor, store } from '@/store/store'
  */
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const route = useRouter()
     return (
         <Provider store={store}>
-            {/* <PersistGate persistor={persistor}> */}
-            <Component {...pageProps} />
-            {/* </PersistGate> */}
+            <PersistGate persistor={persistor}>
+                {route.pathname.startsWith('/library') ? (
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                ) : (
+                    <Component {...pageProps} />
+                )}
+            </PersistGate>
         </Provider>
     )
 }

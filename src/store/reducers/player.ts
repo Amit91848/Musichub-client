@@ -28,7 +28,8 @@ interface initialState {
 
 interface Play {
     track: CommonTracks
-    playlist: CommonPlaylist
+    playlist?: CommonPlaylist
+    searchTracks?: CommonTracks[]
 }
 
 const initialState: initialState = {
@@ -71,33 +72,55 @@ const player = createSlice({
     name: 'player',
     reducers: {
         play: (state, action: PayloadAction<Play>) => {
-            const { playlist, track } = action.payload;
-            const queue = playlist.tracks;
-            const index = queue.findIndex((q) => track.id === q.id);
+            const { playlist, track, searchTracks } = action.payload;
 
-            const currentPlaylistId = state.playlist.id
+            // playing from playlists
+            if (playlist) {
+                const queue = playlist.tracks;
+                const index = queue.findIndex((q) => track.id === q.id);
 
-            if (playlist.playlistId === currentPlaylistId) {
-                // play new track
-                return state = {
-                    ...state,
-                    index,
-                    currentTrack: { ...track },
-                    queue: [...queue]
+                const currentPlaylistId = state.playlist.id
+
+                // play new track from same playlist
+                if (playlist.playlistId === currentPlaylistId) {
+                    return state = {
+                        ...state,
+                        index,
+                        isPlaying: true,
+                        currentTrack: { ...track },
+                        queue: [...queue]
+                    }
+                } else {
+                    // empty user queue and change playlist details
+                    return state = {
+                        ...state,
+                        index,
+                        currentTrack: { ...track },
+                        isPlaying: true,
+                        queue: [...queue],
+                        playlist: {
+                            id: playlist.playlistId,
+                            source: playlist.source
+                        },
+                        userQueue: [],
+                        userQueueIndex: 0
+                    }
                 }
-            } else {
-                // empty user queue and change playlist details
+            } else if (searchTracks) {
+                // playing from search page
+                const queue = searchTracks;
+                const index = queue.findIndex((q) => track.id === q.id);
+
                 return state = {
                     ...state,
                     index,
+                    isPlaying: true,
                     currentTrack: { ...track },
                     queue: [...queue],
                     playlist: {
-                        id: playlist.playlistId,
-                        source: playlist.source
-                    },
-                    userQueue: [],
-                    userQueueIndex: 0
+                        id: '',
+                        source: track.source
+                    }
                 }
             }
         },
@@ -111,6 +134,7 @@ const player = createSlice({
                 return state = {
                     ...state,
                     userQueueIndex: userQueueIndex + 1,
+                    isPlaying: true,
                     currentTrack: { ...nextTrack },
                 }
             }
@@ -122,6 +146,7 @@ const player = createSlice({
             return state = {
                 ...state,
                 index: changeTo,
+                isPlaying: true,
                 currentTrack: { ...newTrack }
             }
         },
@@ -144,9 +169,15 @@ const player = createSlice({
                 userQueueIndex: 0,
                 userQueue: []
             }
+        },
+        handlePlayPause: (state, action: PayloadAction<boolean>) => {
+            return state = {
+                ...state,
+                isPlaying: action.payload
+            }
         }
     }
 })
 
-export const { play, changeTrack, toggleShuffle, addToQueue, emptyQueue } = player.actions
+export const { play, changeTrack, toggleShuffle, addToQueue, emptyQueue, handlePlayPause } = player.actions
 export default player.reducer

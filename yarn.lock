@@ -1877,6 +1877,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-youtube@^7.10.0":
+  version "7.10.0"
+  resolved "https://registry.npmjs.org/@types/react-youtube/-/react-youtube-7.10.0.tgz"
+  integrity sha512-RtEyYn9kze525y1DIpNByvKCj2mwqAuPIAZx+HVJMsK7cXIWbOLemYNsBHSInMhjeGRiKDEz4pIgLX1mAGbDqQ==
+  dependencies:
+    react-youtube "*"
+
 "@types/react@*", "@types/react@^16.8 || ^17.0 || ^18.0", "@types/react@^18.0.26":
   version "18.0.26"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.26.tgz"
@@ -5561,7 +5568,7 @@ react-loader-spinner@^5.3.4:
     react-is "^18.0.0"
     use-sync-external-store "^1.0.0"
 
-react-youtube@^10.1.0:
+react-youtube@*, react-youtube@^10.1.0:
   version "10.1.0"
   resolved "https://registry.npmjs.org/react-youtube/-/react-youtube-10.1.0.tgz"
   integrity sha512-ZfGtcVpk0SSZtWCSTYOQKhfx5/1cfyEW1JN/mugGNfAxT3rmVJeMbGpA9+e78yG21ls5nc/5uZJETE3cm3knBg==

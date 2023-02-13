@@ -8,7 +8,7 @@ export default function Header() {
     React.useEffect(() => {
         const handleKeyUp = (e) => {
             if (e.key === 'Enter' && searchQuery !== '') {
-                router.push(`/search/${searchQuery}`)
+                router.push(`/library/search/${searchQuery}`)
             }
         }
         document.addEventListener('keyup', handleKeyUp)
@@ -37,7 +37,7 @@ export default function Header() {
                     />
                 </div>
             </div>
-            <div className='dropdown-end dropdown'>
+            <div className='dropdown dropdown-end'>
                 <label
                     tabIndex={0}
                     className='btn-ghost btn-circle avatar btn bg-red-500'

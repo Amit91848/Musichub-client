@@ -13,6 +13,7 @@ export class SpotifyWebPlaybackSDK {
     deviceId?: string | null;
     timer?: string | null;
     position?: number;
+    songEnded?: boolean
 
     constructor(playerName: string, volume: number) {
         this.playerName = playerName;
@@ -89,7 +90,7 @@ export class SpotifyWebPlaybackSDK {
                 position_ms: position
             })
         })
-            .then((response) => console.log('song played'))
+            .then((response) => this.songEnded = false)
             .catch(error => {
                 console.log('error from play ', error)
             });
@@ -144,6 +145,7 @@ export class SpotifyWebPlaybackSDK {
     handleStateChange(state: Spotify.PlaybackState) {
         if (!state.paused && !state.loading && state.track_window.previous_tracks.find(x => x.id === state.track_window.current_track.id)) {
             console.log('song ended in handleState change')
+            this.songEnded = true
         }
     }
 }

@@ -26,9 +26,9 @@ export default function LibraryPage() {
         // getAllPlaylists()
     }, [])
     return (
-        <Layout>
+        <>
             <button onClick={getAllPlaylists}> Sync </button>
             <Playlists />
-        </Layout>
+        </>
     )
 }
