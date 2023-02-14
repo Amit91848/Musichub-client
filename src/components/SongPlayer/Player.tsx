@@ -15,8 +15,6 @@ export const Player: React.FC<PlayerProps> = ({}) => {
         (state: RootState) => state.player
     )
 
-    // return (
-    // )
     return (
         <>
             <PlayerUI shuffleEnabled={shuffleEnabled} />

@@ -31,7 +31,6 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
         }
 
         return () => {
-            console.log('in unmounting')
             player.current = null
         }
     }, [])
@@ -44,7 +43,6 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             currentTrack.source === 'spotify' &&
             isPlaying
         ) {
-            console.log('loading track')
             player.current.load(currentTrack.id)
         }
     }, [currentTrack, player.current])

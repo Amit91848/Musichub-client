@@ -14,6 +14,7 @@ import { RootState, useAppDispatch } from '@/store/store'
 import { CommonPlaylist, CommonTracks } from '@/constant/services'
 
 import Track from './Track'
+import YoutubePlayer from '../SongPlayer/YoutubePlayer'
 
 export const MainContainer: React.FC = () => {
     const router = useRouter()
@@ -31,8 +32,8 @@ export const MainContainer: React.FC = () => {
     const currentPlaylist: CommonPlaylist = playlists[source]?.find(
         (p: CommonPlaylist) => p.playlistId === playlistId
     )
-    const currentTrack = useSelector(
-        (state: RootState) => state.player.currentTrack
+    const { currentTrack, isPlaying } = useSelector(
+        (state: RootState) => state.player
     )
 
     const imgUrl = currentPlaylist?.img[0].url
@@ -153,6 +154,12 @@ export const MainContainer: React.FC = () => {
                             visible={true}
                         />
                     </div>
+                )}
+                {source === 'youtube' && (
+                    <YoutubePlayer
+                        currentTrack={currentTrack}
+                        isPlaying={isPlaying}
+                    />
                 )}
             </div>
         </div>
