@@ -6,7 +6,7 @@ export default function Header() {
     const router = useRouter()
     const [searchQuery, setSearchQuery] = React.useState('')
     React.useEffect(() => {
-        const handleKeyUp = (e) => {
+        const handleKeyUp = (e: KeyboardEvent) => {
             if (e.key === 'Enter' && searchQuery !== '') {
                 router.push(`/library/search/${searchQuery}`)
             }
@@ -17,15 +17,7 @@ export default function Header() {
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     return (
         <div className='navbar flex justify-between bg-dark shadow-lg'>
-            <div className=''>
-                <Link
-                    href='/library'
-                    className='btn-ghost btn text-xl normal-case text-font'
-                >
-                    Music Hub
-                </Link>
-            </div>
-            <div className='w-1/3 gap-2'>
+            <div className='ml-4 w-1/3 gap-2'>
                 <div className='form-control w-full'>
                     <input
                         type='text'
@@ -43,13 +35,7 @@ export default function Header() {
                     tabIndex={0}
                     className='btn-ghost btn-circle avatar btn bg-red-500'
                 >
-                    <div className='w-10 rounded-full'>
-                        {/* <img src='https://placeimg.com/80/80/people' />  */}
-                        {/* <Image
-                                alt='userImage'
-                                src='https://placeimg.com/80/80/people'
-                            /> */}
-                    </div>
+                    <div className='w-10 rounded-full'></div>
                 </label>
                 <ul
                     tabIndex={0}

@@ -7,14 +7,20 @@ import Player from '../SongPlayer/Player'
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <div className='h-screen overflow-y-hidden bg-dark'>
-                <Header />
-                <div className='flex h-[calc(100vh_-_66px_-_80px)] overflow-scroll'>
+            <div className='flex h-screen overflow-y-hidden bg-dark'>
+                {/* <Header />
+                <div className='flex h-full overflow-scroll'>
                     <Sidebar />
                     {children}
                 </div>
-                {/* <SpotifyPlayer /> */}
-                <Player />
+                <SpotifyPlayer />
+                <Player /> */}
+                <Sidebar />
+                <div className='w-full'>
+                    <Header />
+                    {children}
+                    <Player />
+                </div>
             </div>
         </>
     )

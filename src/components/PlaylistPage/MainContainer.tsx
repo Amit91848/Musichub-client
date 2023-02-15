@@ -81,7 +81,7 @@ export const MainContainer: React.FC = () => {
     }, [playlistId, source])
 
     return (
-        <div className='flex h-[calc(100vh_-_66px_-_80px)] w-full overflow-scroll bg-darkSupport py-10 text-lightSupport transition'>
+        <div className='flex h-full w-full overflow-scroll bg-darkSupport py-10 text-lightSupport transition'>
             <div className='mx-auto h-fit w-[95%] rounded-lg bg-dark p-9'>
                 <div className='mb-16 flex h-52 w-full px-6'>
                     <div className='flex h-full w-52'>
