@@ -44,6 +44,8 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             isPlaying
         ) {
             player.current.load(currentTrack.id)
+        } else if (player.current && currentTrack.source !== 'spotify') {
+            player.current.pause()
         }
     }, [currentTrack, player.current])
 
