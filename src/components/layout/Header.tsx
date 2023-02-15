@@ -14,11 +14,12 @@ export default function Header() {
         document.addEventListener('keyup', handleKeyUp)
         return () => document.removeEventListener('keyup', handleKeyUp)
     }, [searchQuery, router])
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     return (
         <div className='navbar flex justify-between bg-dark shadow-lg'>
             <div className=''>
                 <Link
-                    href='http://localhost:3000/library'
+                    href='/library'
                     className='btn-ghost btn text-xl normal-case text-font'
                 >
                     Music Hub
@@ -37,7 +38,7 @@ export default function Header() {
                     />
                 </div>
             </div>
-            <div className='dropdown dropdown-end'>
+            <div className='dropdown-end dropdown'>
                 <label
                     tabIndex={0}
                     className='btn-ghost btn-circle avatar btn bg-red-500'
@@ -58,7 +59,7 @@ export default function Header() {
                         <a>Settings</a>
                     </li>
                     <li>
-                        <a href='http://localhost:4040/auth/logout'>Logout</a>
+                        <a href={`${backendURL}/auth/logout`}>Logout</a>
                     </li>
                 </ul>
             </div>

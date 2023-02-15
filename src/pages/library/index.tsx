@@ -9,8 +9,9 @@ import { useAppDispatch } from '@/store/store'
 
 export default function LibraryPage() {
     const dispatch = useAppDispatch()
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     const getAllPlaylists = async () => {
-        const res = await axios.get('http://localhost:4040/api/playlists', {
+        const res = await axios.get(`${backendURL}/api/playlists`, {
             withCredentials: true,
         })
 
@@ -18,7 +19,7 @@ export default function LibraryPage() {
     }
     React.useEffect(() => {
         async function getUserData() {
-            const res = await axios.get('http://localhost:4040/api/user', {
+            const res = await axios.get(`${backendURL}/api/user`, {
                 withCredentials: true,
             })
         }

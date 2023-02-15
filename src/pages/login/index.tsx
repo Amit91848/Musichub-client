@@ -9,6 +9,7 @@ import Seo from '@/components/Seo'
 
 export default function Login() {
     const [mode, useMode] = useState<'dark' | 'light'>('dark')
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     return (
         // <Layout>
         <>
@@ -31,7 +32,7 @@ export default function Login() {
                     >
                         <div className='text- my-auto flex w-full flex-col items-center'>
                             <ButtonLink
-                                href='http://localhost:4040/auth/google'
+                                href={`${backendURL}/auth/google`}
                                 className='h-11 w-4/6 border border-red-700 py-6 px-4 shadow-2xl'
                                 variant='outline'
                                 leftIcon={AiFillYoutube}
@@ -41,7 +42,7 @@ export default function Login() {
                             </ButtonLink>
                             <br />
                             <ButtonLink
-                                href='http://localhost:4040/auth/spotify'
+                                href={`${backendURL}/auth/spotify`}
                                 className='h-11 w-4/6 border border-green-600 py-6 px-4 shadow-2xl'
                                 variant='outline'
                                 leftIcon={BsSpotify}

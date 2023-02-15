@@ -19,7 +19,8 @@ export const appendSpotifySDKScriptToDOM = () => {
 export const fetchAccessToken = async (jwt: string): Promise<string> => {
     const tokenInstance = createInstanceWithBearer(jwt);
 
-    const token = await tokenInstance.get('http://localhost:4040/api/spotify/access_token', { withCredentials: true });
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
+    const token = await tokenInstance.get(`${backendURL}/api/spotify/access_token`, { withCredentials: true });
     return token.data;
 }
 

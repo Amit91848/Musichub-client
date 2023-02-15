@@ -15,12 +15,13 @@ export const ArtistLink: React.FC<ArtistLinkProps> = ({
     length,
     index,
 }) => {
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     return (
         <>
             {index === 0 ? '' : ', '}
             <Link
                 className='overflow-hidden text-ellipsis whitespace-nowrap text-xs text-primary-600 hover:underline'
-                href={`http://localhost:4040/api/artist/${source}/${artist.id}/${artist.name}`}
+                href={`${backendURL}/api/artist/${source}/${artist.id}/${artist.name}`}
             >
                 {artist.name}
             </Link>

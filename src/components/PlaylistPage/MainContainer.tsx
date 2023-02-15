@@ -20,6 +20,7 @@ export const MainContainer: React.FC = () => {
     const router = useRouter()
     const { source, playlistId } = router.query
     const sourceCapital = useRef('')
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
 
     const [tracks, setTracks] = useState<CommonTracks[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -47,7 +48,7 @@ export const MainContainer: React.FC = () => {
     const fetchTracks = async () => {
         setIsLoading(true)
         const response = await axios.get(
-            `http://localhost:4040/api/${source}/playlist/${playlistId}/tracks`,
+            `${backendURL}/api/${source}/playlist/${playlistId}/tracks`,
             {
                 withCredentials: true,
             }
