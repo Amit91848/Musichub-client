@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
     changeTrack,
     emptyQueue,
@@ -5,7 +7,6 @@ import {
     toggleShuffle,
 } from '@/store/reducers/player'
 import { useAppDispatch } from '@/store/store'
-import React from 'react'
 
 interface PlayerUIProps {
     shuffleEnabled: boolean

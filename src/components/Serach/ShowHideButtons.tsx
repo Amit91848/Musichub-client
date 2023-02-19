@@ -1,8 +1,9 @@
 import React from 'react'
 import { IconType } from 'react-icons'
 
-import Button from '../buttons/Button'
 import { service } from '@/constant/services'
+
+import Button from '../buttons/Button'
 
 export interface Contents {
     source: service

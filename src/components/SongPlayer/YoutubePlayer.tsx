@@ -1,6 +1,7 @@
-import { CommonTracks } from '@/constant/services'
 import React, { useEffect, useState } from 'react'
 import YouTube, { YouTubeProps } from 'react-youtube'
+
+import { CommonTracks } from '@/constant/services'
 
 interface YoutubePlayerProps {
     currentTrack: CommonTracks
@@ -17,13 +18,10 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     const onPlayerReady: YouTubeProps['onReady'] = (event) => {
         // access to player in all event handlers via event.target
         // event.target.pauseVideo()
-        console.log(event.target)
         setPlayerTarget(event.target)
     }
 
-    const onStateChange: YouTubeProps['onStateChange'] = (event) => {
-        console.log(event.target)
-    }
+    const onStateChange: YouTubeProps['onStateChange'] = (event) => {}
 
     const opts: YouTubeProps['opts'] = {
         height: '390',
@@ -39,7 +37,6 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
 
     useEffect(() => {
         if (currentTrack.source === 'youtube') {
-            console.log('youtube video id is: ', currentTrack.id)
             setVideoId(currentTrack.id)
         } else {
             setVideoId(undefined)

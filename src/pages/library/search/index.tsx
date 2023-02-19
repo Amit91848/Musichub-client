@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Layout from '@/components/layout/Layout'
 import RecentSearchContainer from '@/components/Serach/RecentSearchContainer'
 
 interface indexProps {
@@ -10,10 +9,8 @@ interface indexProps {
 export const index: React.FC<indexProps> = ({ source }) => {
     return (
         <>
-            {/* <Layout> */}
             <RecentSearchContainer />
             {source}
-            {/* </Layout> */}
         </>
     )
 }

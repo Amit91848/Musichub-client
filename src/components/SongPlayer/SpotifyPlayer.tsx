@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 import { changeTrack } from '@/store/reducers/player'
-import { RootState, useAppDispatch } from '@/store/store'
+import { useAppDispatch } from '@/store/store'
 
 import { CommonTracks } from '@/constant/services'
 
@@ -36,7 +36,6 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
     }, [])
 
     useEffect(() => {
-        console.log(player.current)
         if (
             player.current &&
             currentTrack &&

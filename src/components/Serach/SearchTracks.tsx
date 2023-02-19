@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 
+import { play } from '@/store/reducers/player'
 import { RootState, useAppDispatch } from '@/store/store'
 
-import { CommonPlaylist, CommonTracks, service } from '@/constant/services'
+import { CommonTracks, service } from '@/constant/services'
 
 import Track from '../PlaylistPage/Track'
-import { play } from '@/store/reducers/player'
 
 export interface SpotifyCommonTracks {
     href: string

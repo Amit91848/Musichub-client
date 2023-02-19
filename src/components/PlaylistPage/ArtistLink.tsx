@@ -1,6 +1,7 @@
-import { CommonTracks, service } from '@/constant/services'
 import Link from 'next/link'
 import React from 'react'
+
+import { CommonTracks, service } from '@/constant/services'
 
 interface ArtistLinkProps {
     artist: CommonTracks['artist'][0]

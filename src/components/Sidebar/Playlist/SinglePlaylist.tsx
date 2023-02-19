@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { AiFillSound } from 'react-icons/ai'
+import { useSelector } from 'react-redux'
 
 import ServiceIcon from '@/components/ServiceIcon/ServiceIcon'
 
-import { CommonPlaylist } from '@/constant/services'
-import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 
-import { AiFillSound } from 'react-icons/ai'
-import { Audio } from 'react-loader-spinner'
+import { CommonPlaylist } from '@/constant/services'
 interface SinglePlaylistProps {
     playlist: CommonPlaylist
 }

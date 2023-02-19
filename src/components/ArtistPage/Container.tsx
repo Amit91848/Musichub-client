@@ -1,12 +1,16 @@
-import { CommonTracks, artistInfo, lastFmArtistInfo } from '@/constant/services'
-import clsxm from '@/lib/clsxm'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import Track from '../PlaylistPage/Track'
-import { RootState, useAppDispatch } from '@/store/store'
-import { play } from '@/store/reducers/player'
 import { useSelector } from 'react-redux'
+
+import clsxm from '@/lib/clsxm'
+
+import { play } from '@/store/reducers/player'
+import { RootState, useAppDispatch } from '@/store/store'
+
+import { artistInfo, CommonTracks, lastFmArtistInfo } from '@/constant/services'
+
+import Track from '../PlaylistPage/Track'
 
 interface ContainerProps {}
 
@@ -14,7 +18,6 @@ export const Container: React.FC<ContainerProps> = ({}) => {
     const router = useRouter()
     const { source, artistId, artistName } = router.query
     const [artistInfo, setArtistInfo] = useState<lastFmArtistInfo>()
-    const [showMoreLength, setShowMoreLength] = useState<number>()
     const [artistOtherTracks, setArtistOtherTracks] = useState<CommonTracks[]>(
         []
     )

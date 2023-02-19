@@ -1,7 +1,6 @@
 import axios from 'axios'
 import * as React from 'react'
 
-import Layout from '@/components/layout/Layout'
 import Playlists from '@/components/LibraryPlaylist/Playlists'
 
 import { updatePlaylists } from '@/store/reducers/library'
