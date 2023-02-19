@@ -11,7 +11,7 @@ interface SpotifyArtistsProps {
 export const SpotifyArtist: React.FC<SpotifyArtistsProps> = ({ artist }) => {
     return (
         <Link
-            href={`http://localhost:3030/artist/${artist.id}/${artist.name}`}
+            href={`/library/artist/spotify/${artist.id}/${artist.name}`}
             className='h-fit w-full '
         >
             <div

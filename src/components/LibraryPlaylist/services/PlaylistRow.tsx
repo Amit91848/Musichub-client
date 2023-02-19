@@ -27,7 +27,7 @@ export const PlaylistRow: React.FC<PlaylistRowProps> = ({
             >
                 {source} Playlist
             </div>
-            <div className='mt-3 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-6'>
+            <div className='mt-3 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-5'>
                 {playlists?.map((playlist) => (
                     <PlaylistCard
                         source={source}

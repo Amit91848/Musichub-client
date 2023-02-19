@@ -16,10 +16,10 @@ export const PlaylistContainer: React.FC = () => {
     // console.log(user.user)
 
     return (
-        <div className='mt-2 w-full text-center'>
+        <div className='mt-5 w-full text-center'>
             <div className='font-eliteSpecial text-2xl'>Playlists</div>
-            <div className='flex h-fit w-11/12 overflow-y-scroll rounded-lg scrollbar-hide'>
-                <div className='w-full'>
+            <div className='flex h-fit overflow-y-scroll rounded-lg scrollbar-hide'>
+                <div className='mx-auto w-11/12 p-1'>
                     <Source source='spotify' playlists={spotify} />
                     <Source source='youtube' playlists={youtube} />
                     <Source source='soundcloud' playlists={soundcloud} />

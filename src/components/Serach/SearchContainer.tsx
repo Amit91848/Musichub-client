@@ -43,24 +43,24 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({}) => {
     }, [query])
 
     return (
-        <div className='h-full w-screen overflow-y-scroll p-10'>
-            <div className='flex h-fit w-full flex-col space-y-12  text-lightSupport'>
-                <div>
-                    <div className='text-xl font-light tracking-wider'>
-                        Showing search results for "{query}"
-                    </div>
-                    <Link className='mt-2' href='http://localhost:3000/search'>
-                        {'<-'} Return to search Page
-                    </Link>
+        // <div className='h-full w-screen overflow-y-scroll p-10'>
+        <div className='flex h-fit w-full flex-col space-y-12  text-lightSupport'>
+            <div>
+                <div className='text-xl font-light tracking-wider'>
+                    Showing search results for "{query}"
                 </div>
-                <ShowHideButtons objects={objects} />
-                {showSpotify && <SpotifySearchArtists />}
-                <div className='grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4'>
-                    {showSpotify && <SearchTracks source='spotify' />}
-                    {showYoutube && <SearchTracks source='youtube' />}
-                </div>
+                <Link className='mt-2' href='/library/search'>
+                    {'<-'} Return to search Page
+                </Link>
+            </div>
+            <ShowHideButtons objects={objects} />
+            {showSpotify && <SpotifySearchArtists />}
+            <div className='grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4'>
+                {showSpotify && <SearchTracks source='spotify' />}
+                {showYoutube && <SearchTracks source='youtube' />}
             </div>
         </div>
+        // </div>
     )
 }
 

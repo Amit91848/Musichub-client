@@ -11,7 +11,7 @@ const Sidebar = () => {
     const router = useRouter()
     return (
         <>
-            <div className='flex h-full w-60 flex-col overflow-scroll text-font shadow-lg'>
+            <div className='flex h-full w-[270px] flex-col overflow-scroll text-font shadow-lg'>
                 <div className='mt-5 flex w-full flex-col items-center'>
                     <div className='h-16'>
                         <Link

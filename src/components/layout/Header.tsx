@@ -15,13 +15,13 @@ export default function Header() {
     }, [searchQuery, router])
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     return (
-        <div className='navbar flex justify-between bg-dark shadow-lg'>
+        <div className='flex h-20 items-center justify-between border-b border-[#383f41] bg-[#151d20] shadow-lg'>
             <div className='ml-4 w-1/3 gap-2'>
                 <div className='form-control w-full'>
                     <input
                         type='text'
                         placeholder='Search'
-                        className='input-bordered input bg-searchBar text-font'
+                        className='input-bordered input bg-[#bbb]'
                         value={searchQuery}
                         onChange={(e) => {
                             setSearchQuery(e.target.value)
@@ -29,16 +29,13 @@ export default function Header() {
                     />
                 </div>
             </div>
-            <div className='dropdown-end dropdown'>
-                <label
-                    tabIndex={0}
-                    className='btn-ghost btn-circle avatar btn bg-red-500'
-                >
+            <div className='dropdown-end dropdown mr-2'>
+                <label tabIndex={0} className='btn-ghost btn-circle avatar btn'>
                     <div className='w-10 rounded-full'></div>
                 </label>
                 <ul
                     tabIndex={0}
-                    className='dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow'
+                    className='dropdown-content menu rounded-box menu-compact mt-3 w-52 p-2 text-light shadow'
                 >
                     <li>
                         <a>Settings</a>

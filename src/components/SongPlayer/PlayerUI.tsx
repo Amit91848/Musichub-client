@@ -28,7 +28,6 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
         dispatch(changeTrack(-1))
     }
 
-    //TODO pass as prop to spotify
     const pauseMusic = () => {
         dispatch(handlePlayPause(false))
     }
@@ -46,12 +45,6 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
     }
     return (
         <>
-            {/* <div className='invisible'>
-                <YoutubePlayer
-                    currentTrack={currentTrack}
-                    isPlaying={isPlaying}
-                />
-            </div> */}
             <div className='flex h-20 w-full space-x-5 text-white'>
                 <button onClick={previousTrack}>Previous Track</button>
                 <button onClick={playMusic}>Play music</button>

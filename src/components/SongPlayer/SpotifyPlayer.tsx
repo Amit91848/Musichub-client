@@ -45,6 +45,13 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             player.current.load(currentTrack.id)
         } else if (player.current && currentTrack.source !== 'spotify') {
             player.current.pause()
+        } else if (player.current === null) {
+            window.onSpotifyWebPlaybackSDKReady = () => {
+                if (!player.current) {
+                    player.current = new SpotifyWebPlaybackSDK('Music Hub', 0.5)
+                    player.current.initPlayer()
+                }
+            }
         }
     }, [currentTrack, player.current])
 
@@ -56,6 +63,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
     }, [isPlaying])
 
     useEffect(() => {
+        console.log(player.current)
         if (player.current && player.current.songEnded) {
             dispatch(changeTrack(1))
         }

@@ -24,12 +24,15 @@ module.exports = {
                     800: 'rgb(var(--tw-color-primary-800) / <alpha-value>)',
                     900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
                 },
-                dark: '#1a1c23',
+                dark: '#121a1d',
                 light: '#C2C2C2',
                 font: '#9e9e9e',
-                darkSupport: '#121317',
+                darkSupport: '#151d20',
                 lightSupport: '#707275',
                 searchBar: '#24262d',
+                greenBg: '#192124',
+                contentBg: '#1b2326',
+                textYellow: '#bda356',
             },
             keyframes: {
                 flicker: {

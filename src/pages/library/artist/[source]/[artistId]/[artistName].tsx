@@ -1,4 +1,4 @@
-import Container from '@/components/ArtistPage/Container'
+import ArtistContainer from '@/components/ArtistPage/ArtistContainer'
 import React from 'react'
 
 interface artistIdProps {}
@@ -6,7 +6,7 @@ interface artistIdProps {}
 export const artistId: React.FC<artistIdProps> = ({}) => {
     return (
         // <div>
-        <Container />
+        <ArtistContainer />
         // </div>
     )
 }

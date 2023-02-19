@@ -81,89 +81,79 @@ export const MainContainer: React.FC = () => {
     }, [playlistId, source])
 
     return (
-        <div className='flex h-full w-full overflow-scroll bg-darkSupport py-10 text-lightSupport transition'>
-            <div className='mx-auto h-fit w-[95%] rounded-lg bg-dark p-9'>
-                <div className='mb-16 flex h-52 w-full px-6'>
-                    <div className='flex h-full w-52'>
-                        <div
-                            className={`h-full w-[${width}px] flex-1 rounded-lg border border-gray-700 bg-cover bg-center bg-no-repeat`}
-                            style={{
-                                backgroundImage: `url(${imgUrl})`,
-                            }}
-                        ></div>
+        <>
+            <div className='mb-16 flex h-52 w-full px-6'>
+                <div className='flex h-full w-52'>
+                    <div
+                        className={`h-full w-[${width}px] flex-1 rounded-lg border border-gray-700 bg-cover bg-center bg-no-repeat`}
+                        style={{
+                            backgroundImage: `url(${imgUrl})`,
+                        }}
+                    ></div>
+                </div>
+                <div className='ml-6 flex flex-col justify-between '>
+                    <div className=' mt-4 h-[3rem] cursor-pointer whitespace-pre-wrap font-eliteSpecial text-2xl text-light transition duration-300 hover:text-white lg:text-[2.8rem]'>
+                        {currentPlaylist?.name}
                     </div>
-                    <div className='ml-6 flex flex-col justify-between '>
-                        <div className=' mt-4 h-[3rem] cursor-pointer whitespace-pre-wrap font-eliteSpecial text-2xl text-light transition duration-300 hover:text-white lg:text-[2.8rem]'>
-                            {currentPlaylist?.name}
-                        </div>
-                        <div>
-                            <div className=''>
-                                {sourceCapital.current} Playlist
-                            </div>
-                            <div className='text-sm'>
-                                {currentPlaylist?.total} Tracks
-                            </div>
-                        </div>
-                        <div className='w-dit h-fit w-24'>
-                            {/* <AiFillPlayCircle color='#a76af7' size={75} /> */}
-                            <div className='w-fit cursor-pointer rounded-full  bg-gradient-to-r from-violet-700 to-fuchsia-700 p-4 transition duration-300 hover:scale-110'>
-                                <BsFillPlayFill
-                                    onClick={() => {
-                                        handlePlay(tracks[0])
-                                    }}
-                                    size={35}
-                                />
-                            </div>
+                    <div>
+                        <div className=''>{sourceCapital.current} Playlist</div>
+                        <div className='text-sm'>
+                            {currentPlaylist?.total} Tracks
                         </div>
                     </div>
-                    <div className='ml-auto h-full '>
-                        <div className='ml-auto flex cursor-pointer space-x-7 text-2xl '>
-                            <AiFillStar
-                                className='transition duration-300 hover:text-white'
-                                size={50}
-                            />
-                            <FaSyncAlt
-                                className='transition duration-300 hover:text-white'
-                                onClick={() => fetchTracks()}
-                                size={44}
+                    <div className='w-dit h-fit w-24'>
+                        {/* <AiFillPlayCircle color='#a76af7' size={75} /> */}
+                        <div className='w-fit cursor-pointer rounded-full  bg-gradient-to-r from-violet-700 to-fuchsia-700 p-4 transition duration-300 hover:scale-110'>
+                            <BsFillPlayFill
+                                onClick={() => {
+                                    handlePlay(tracks[0])
+                                }}
+                                size={35}
                             />
                         </div>
                     </div>
                 </div>
-                {!isLoading ? (
-                    tracks?.map((track) => (
-                        <Track
-                            isActive={
-                                track.id === currentTrack.id
-                                // currentPlaylist.playlistId === playerPlaylist.id
-                            }
-                            key={track.id}
-                            track={track}
-                            handlePlay={handlePlay}
+                <div className='ml-auto h-full '>
+                    <div className='ml-auto flex cursor-pointer space-x-7 text-2xl '>
+                        <AiFillStar
+                            className='transition duration-300 hover:text-white'
+                            size={50}
                         />
-                    ))
-                ) : (
-                    <div className='flex h-full w-full justify-center'>
-                        <TailSpin
-                            height='60'
-                            width='60'
-                            color='#A020F0'
-                            ariaLabel='tail-spin-loading'
-                            radius='0'
-                            wrapperStyle={{}}
-                            wrapperClass=''
-                            visible={true}
+                        <FaSyncAlt
+                            className='transition duration-300 hover:text-white'
+                            onClick={() => fetchTracks()}
+                            size={44}
                         />
                     </div>
-                )}
-                {/* {source === 'youtube' && (
-                    <YoutubePlayer
-                        currentTrack={currentTrack}
-                        isPlaying={isPlaying}
-                    />
-                )} */}
+                </div>
             </div>
-        </div>
+            {!isLoading ? (
+                tracks?.map((track) => (
+                    <Track
+                        isActive={
+                            track.id === currentTrack.id
+                            // currentPlaylist.playlistId === playerPlaylist.id
+                        }
+                        key={track.id}
+                        track={track}
+                        handlePlay={handlePlay}
+                    />
+                ))
+            ) : (
+                <div className='flex h-full w-full justify-center'>
+                    <TailSpin
+                        height='60'
+                        width='60'
+                        color='#A020F0'
+                        ariaLabel='tail-spin-loading'
+                        radius='0'
+                        wrapperStyle={{}}
+                        wrapperClass=''
+                        visible={true}
+                    />
+                </div>
+            )}
+        </>
     )
 }
 
