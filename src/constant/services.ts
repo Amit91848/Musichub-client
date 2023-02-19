@@ -75,3 +75,54 @@ export interface SpotifyCommon {
     previous: string | null,
     total: number
 }
+
+interface lastFmImage {
+    '#text': string,
+    size: 'small' | 'medium' | 'large' | 'extralarge' | 'mega' | ''
+}
+
+interface lastFmTag {
+    name: string,
+    url: string
+}
+
+export interface lastFmArtistInfo {
+    artist: {
+        name: string,
+        url: string,
+        image: lastFmImage[],
+        streamable: number,
+        ontour: number,
+        stats: {
+            listeners: string,
+            playcount: string
+        },
+        similar: {
+            artist: {
+                name: string,
+                image: lastFmImage[]
+            }[]
+        },
+        tags: {
+            tag: lastFmTag[]
+        },
+        bio: {
+            links: {
+                link: {
+                    '#text': string,
+                    rel: string,
+                    href: string
+                }
+            },
+            published: string,
+            summary: string,
+            content: string
+        }
+    }
+}
+
+export interface artistInfo {
+    topTracks: CommonTracks[]
+    otherTracks: CommonTracks[]
+    artistInfo: lastFmArtistInfo
+}

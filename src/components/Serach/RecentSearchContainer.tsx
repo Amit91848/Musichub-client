@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import SearchBox from './SearchBox'
+import axios from 'axios'
 
 interface RecentSearchContainerProps {}
 
 export const RecentSearchContainer: React.FC<
     RecentSearchContainerProps
 > = ({}) => {
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     const [searches, setSearches] = useState<string[]>([])
     return (
         <div className='h-full w-full bg-darkSupport p-8 text-lightSupport'>

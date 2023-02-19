@@ -21,7 +21,7 @@ export const ArtistLink: React.FC<ArtistLinkProps> = ({
             {index === 0 ? '' : ', '}
             <Link
                 className='overflow-hidden text-ellipsis whitespace-nowrap text-xs text-primary-600 hover:underline'
-                href={`${backendURL}/api/artist/${source}/${artist.id}/${artist.name}`}
+                href={`/library/artist/${source}/${artist.id}/${artist.name}`}
             >
                 {artist.name}
             </Link>

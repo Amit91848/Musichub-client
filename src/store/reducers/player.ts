@@ -29,7 +29,7 @@ interface initialState {
 interface Play {
     track: CommonTracks
     playlist?: CommonPlaylist
-    searchTracks?: CommonTracks[]
+    trackList?: CommonTracks[]
 }
 
 const initialState: initialState = {
@@ -72,7 +72,7 @@ const player = createSlice({
     name: 'player',
     reducers: {
         play: (state, action: PayloadAction<Play>) => {
-            const { playlist, track, searchTracks } = action.payload;
+            const { playlist, track, trackList } = action.payload;
 
             // playing from playlists
             if (playlist) {
@@ -106,9 +106,9 @@ const player = createSlice({
                         userQueueIndex: 0
                     }
                 }
-            } else if (searchTracks) {
+            } else if (trackList) {
                 // playing from search page
-                const queue = searchTracks;
+                const queue = trackList;
                 const index = queue.findIndex((q) => track.id === q.id);
 
                 return state = {

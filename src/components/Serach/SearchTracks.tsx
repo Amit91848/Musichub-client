@@ -41,7 +41,7 @@ export const SearchTracks: React.FC<SpotifySearchTracksProps> = ({
     const dispatch = useAppDispatch()
 
     const handlePlay = (track: CommonTracks) => {
-        dispatch(play({ track, searchTracks: tracks }))
+        dispatch(play({ track, trackList: tracks }))
     }
 
     async function fetchSpotifyTracks() {
