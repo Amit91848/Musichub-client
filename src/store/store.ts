@@ -9,7 +9,8 @@ import user from './reducers/user';
 
 const persistConfig = {
     key: 'library',
-    storage: storage
+    storage: storage,
+    expire: 1000 * 30
 }
 
 const combinedReducer = combineReducers({
