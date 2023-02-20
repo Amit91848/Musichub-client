@@ -1,4 +1,11 @@
 import React from 'react'
+import { AiOutlinePauseCircle, AiOutlinePlayCircle } from 'react-icons/ai'
+import {
+    BiRepeat,
+    BiShuffle,
+    BiSkipNextCircle,
+    BiSkipPreviousCircle,
+} from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 import {
@@ -9,7 +16,9 @@ import {
 } from '@/store/reducers/player'
 import { RootState, useAppDispatch } from '@/store/store'
 
-import YoutubePlayer from './YoutubePlayer'
+import VolumeController from './VolumeController'
+import ArtistLink from '../PlaylistPage/ArtistLink'
+import PositionSeek from './PositionSeek'
 
 interface PlayerUIProps {
     shuffleEnabled: boolean
@@ -44,18 +53,60 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
         dispatch(emptyQueue())
     }
     return (
-        <>
-            <div className='flex h-20 w-full space-x-5 text-white'>
-                <button onClick={previousTrack}>Previous Track</button>
-                <button onClick={playMusic}>Play music</button>
-                <button onClick={pauseMusic}>Pause Music</button>
-                <button onClick={nextTrack}>Next Track</button>
+        <div className='grid h-20 w-full grid-cols-3 items-center space-x-5 px-2 text-white'>
+            <PositionSeek />
+            <div className='flex items-center gap-3 overflow-hidden whitespace-nowrap p-1'>
+                <div
+                    className='h-16 min-w-[5rem] rounded-lg border border-[#383f41] bg-red-900 bg-cover bg-center bg-no-repeat'
+                    style={{
+                        backgroundImage: `url(${currentTrack.img[1].url})`,
+                    }}
+                ></div>
+                <div className='text-xs font-light tracking-wide'>
+                    <p className='text-ellipsis'>{currentTrack.title}</p>
+                    {currentTrack.artist.map((a, index) => (
+                        <ArtistLink
+                            className='text-[0.725rem]'
+                            artist={a}
+                            key={a.id}
+                            source={currentTrack.source}
+                            index={index}
+                        />
+                    ))}
+                </div>
+            </div>
+            <div className='flex space-x-3'>
                 <button onClick={handleShuffle}>
-                    {shuffleEnabled ? 'Unshuffle Queue' : 'Shuffle Queue'}
+                    {shuffleEnabled ? (
+                        <BiShuffle size={30} />
+                    ) : (
+                        <BiShuffle size={30} />
+                    )}
+                </button>
+                <button onClick={previousTrack}>
+                    <BiSkipPreviousCircle size={30} />
+                </button>
+                {isPlaying ? (
+                    <button onClick={pauseMusic}>
+                        <AiOutlinePauseCircle size={60} />
+                    </button>
+                ) : (
+                    <button onClick={playMusic}>
+                        <AiOutlinePlayCircle size={60} />
+                    </button>
+                )}
+                <button onClick={nextTrack}>
+                    <BiSkipNextCircle size={30} />
+                </button>
+                <button>
+                    <BiRepeat size={30} />
                 </button>
                 <button onClick={handleEmptyQueue}>Emtpy Queue</button>
             </div>
-        </>
+            <div className='flex items-center justify-self-end'>
+                <VolumeController />
+            </div>
+        </div>
     )
 }
 

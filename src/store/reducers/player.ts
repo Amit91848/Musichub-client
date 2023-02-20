@@ -175,9 +175,15 @@ const player = createSlice({
                 ...state,
                 isPlaying: action.payload
             }
+        },
+        updateVolume: (state, action: PayloadAction<number>) => {
+            return state = {
+                ...state,
+                volume: action.payload
+            }
         }
     }
 })
 
-export const { play, changeTrack, toggleShuffle, addToQueue, emptyQueue, handlePlayPause } = player.actions
+export const { play, changeTrack, toggleShuffle, addToQueue, emptyQueue, handlePlayPause, updateVolume } = player.actions
 export default player.reducer

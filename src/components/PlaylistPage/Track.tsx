@@ -45,10 +45,10 @@ export const Track: React.FC<TrackProps> = ({
     return (
         <div className='group my-2 flex h-16 w-full items-center rounded-lg  px-6 text-light transition duration-500 hover:bg-[#2f3638]'>
             <div className='group flex h-9 w-full items-center'>
-                <div className='flex h-full w-full space-x-4 '>
+                <div className='mr-2 h-full'>
                     <div
                         style={{ backgroundImage: `url(${url})` }}
-                        className='bg-cover bg-center bg-no-repeat transition duration-200 group-hover:brightness-50'
+                        className='mr-2 rounded bg-cover bg-center bg-no-repeat transition duration-200 group-hover:brightness-50'
                     >
                         <div
                             className={clsxm(
@@ -81,48 +81,42 @@ export const Track: React.FC<TrackProps> = ({
                                 </div>
                             )}{' '}
                         </div>
-                        {/* <div
-                            className='h-full w-9 bg-cover bg-center bg-no-repeat transition duration-200 group-hover:brightness-50'
-                            style={{ backgroundImage: `url(${url})` }}
-                        ></div> */}
-                    </div>
-
-                    <div className='flex flex-col items-start'>
-                        <div className='overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-light'>
-                            {track.title}
-                        </div>
-                        <div className='block overflow-hidden text-ellipsis whitespace-nowrap'>
-                            {track.artist.map((a, index) => (
-                                <ArtistLink
-                                    key={a.id}
-                                    artist={a}
-                                    source={track.source}
-                                    length={track.artist.length}
-                                    index={index}
-                                />
-                            ))}
-                        </div>
                     </div>
                 </div>
-                <div className='ml-auto flex w-1/4 items-center justify-between text-sm'>
-                    <div className='cursor-pointer'>
-                        <Link
-                            href={
-                                track.source === 'spotify'
-                                    ? `https://open.spotify.com/track/${track.id}`
-                                    : ``
-                            }
-                        >
-                            <ServiceIcon
+                <div className='flex grow flex-col items-start overflow-hidden text-ellipsis whitespace-nowrap'>
+                    <div className=' text-xs font-bold text-light'>
+                        {track.title}
+                    </div>
+                    <div className=''>
+                        {track.artist.map((a, index) => (
+                            <ArtistLink
+                                key={a.id}
+                                artist={a}
                                 source={track.source}
-                                size={23}
-                                className='hidden duration-300 group-hover:flex'
+                                index={index}
                             />
-                        </Link>
+                        ))}
                     </div>
-                    <div className='cursor-pointer'>
-                        <Dropdown handleAddToQueue={handleAddToQueue} />
-                    </div>
+                </div>
+                <div className='mr-4 cursor-pointer'>
+                    <Link
+                        href={
+                            track.source === 'spotify'
+                                ? `https://open.spotify.com/track/${track.id}`
+                                : ``
+                        }
+                    >
+                        <ServiceIcon
+                            source={track.source}
+                            size={23}
+                            className='hidden duration-300 group-hover:flex'
+                        />
+                    </Link>
+                </div>
+                <div className='cursor-pointer'>
+                    <Dropdown handleAddToQueue={handleAddToQueue} />
+                </div>
+                <div className=' text-sm'>
                     <div>{millisToMinutesAndSeconds(track.duration)}</div>
                 </div>
             </div>

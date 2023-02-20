@@ -6,11 +6,13 @@ import { CommonTracks } from '@/constant/services'
 interface YoutubePlayerProps {
     currentTrack: CommonTracks
     isPlaying: boolean
+    volume: number
 }
 
 export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     currentTrack,
     isPlaying,
+    volume,
 }) => {
     const [videoId, setVideoId] = useState<string | undefined>(undefined)
     const [playerTarget, setPlayerTarget] = useState()
@@ -52,6 +54,12 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
             }
         }
     }, [isPlaying])
+
+    useEffect(() => {
+        if (playerTarget && currentTrack.source === 'youtube') {
+            playerTarget.setVolume(volume)
+        }
+    }, [volume])
 
     return (
         <YouTube

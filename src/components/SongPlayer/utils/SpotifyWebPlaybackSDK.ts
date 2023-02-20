@@ -100,6 +100,10 @@ export class SpotifyWebPlaybackSDK {
         return this.player?.resume();
     }
 
+    updateVolume(volume: number) {
+        return this.player?.setVolume(volume)
+    }
+
     connect_to_device() {
         console.log('connecting to device');
         fetch("https://api.spotify.com/v1/me/player", {

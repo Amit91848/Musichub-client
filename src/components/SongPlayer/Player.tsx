@@ -10,7 +10,7 @@ import YoutubePlayer from './YoutubePlayer'
 interface PlayerProps {}
 
 export const Player: React.FC<PlayerProps> = ({}) => {
-    const { shuffleEnabled, currentTrack, isPlaying } = useSelector(
+    const { shuffleEnabled, currentTrack, isPlaying, volume } = useSelector(
         (state: RootState) => state.player
     )
 
@@ -20,6 +20,7 @@ export const Player: React.FC<PlayerProps> = ({}) => {
                 <YoutubePlayer
                     currentTrack={currentTrack}
                     isPlaying={isPlaying}
+                    volume={volume}
                 />
             </div>
             <div className='absolute bottom-0 z-10 mt-3 w-full bg-dark'>

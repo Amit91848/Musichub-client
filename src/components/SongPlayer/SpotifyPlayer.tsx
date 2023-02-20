@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 
 import { changeTrack } from '@/store/reducers/player'
-import { useAppDispatch } from '@/store/store'
+import { RootState, useAppDispatch } from '@/store/store'
 
 import { CommonTracks } from '@/constant/services'
 
 import { useSpotifyWebPlaybackSDKScript } from './utils'
 import { SpotifyWebPlaybackSDK } from './utils/SpotifyWebPlaybackSDK'
+import { useSelector } from 'react-redux'
 
 interface PlayerContainerProps {
     currentTrack: CommonTracks
@@ -21,6 +22,8 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
 
     const dispatch = useAppDispatch()
     const player = useRef<SpotifyWebPlaybackSDK | null>(null)
+
+    const { volume } = useSelector((state: RootState) => state.player)
 
     useEffect(() => {
         window.onSpotifyWebPlaybackSDKReady = () => {
@@ -68,6 +71,12 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             dispatch(changeTrack(1))
         }
     }, [player.current?.songEnded])
+
+    useEffect(() => {
+        if (player.current) {
+            player.current.updateVolume(volume)
+        }
+    }, [volume])
 
     return <React.Fragment />
 }
