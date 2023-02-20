@@ -48,7 +48,7 @@ export const Track: React.FC<TrackProps> = ({
                 <div className='mr-2 h-full'>
                     <div
                         style={{ backgroundImage: `url(${url})` }}
-                        className='mr-2 rounded bg-cover bg-center bg-no-repeat transition duration-200 group-hover:brightness-50'
+                        className='mr-2 h-full rounded bg-cover bg-center bg-no-repeat transition duration-200 group-hover:brightness-50'
                     >
                         <div
                             className={clsxm(
@@ -68,7 +68,7 @@ export const Track: React.FC<TrackProps> = ({
                                     size={35}
                                 />
                             ) : (
-                                <div onClick={pauseTrack} className='mt-1'>
+                                <div onClick={pauseTrack}>
                                     <Audio
                                         height='27'
                                         width='35'
