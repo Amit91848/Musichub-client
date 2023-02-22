@@ -1,5 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
+import { BsFillPlayFill } from 'react-icons/bs'
+
+import { play } from '@/store/reducers/player'
+import { useAppDispatch } from '@/store/store'
 
 import { CommonPlaylist, source } from '@/constant/services'
 
@@ -12,15 +16,26 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
     playlist,
     source,
 }) => {
+    const dispatch = useAppDispatch()
+    const handlePlayPlaylist = (
+        e: React.MouseEvent<SVGElement, MouseEvent>
+    ) => {
+        e.preventDefault()
+        dispatch(play({ playlist: playlist, track: playlist.tracks[0] }))
+    }
     return (
         <Link
             href={`http://localhost:3000/library/playlist/${source.toLowerCase()}/${
                 playlist.playlistId
             }`}
         >
-            <div className='align-center duration-3000 group flex h-fit w-full cursor-pointer flex-col justify-center space-y-5 rounded-lg bg-[#1e2629] p-6 shadow-lg transition duration-300 hover:bg-[#2f3638]'>
-                <div className='m-auto'>
-                    {/* <BsFillPlayFill className='z-10' size='100px' /> */}
+            <div className='align-center group group flex h-fit w-full cursor-pointer flex-col justify-center space-y-5 rounded-lg bg-[#1e2629] p-6 transition duration-300 hover:bg-[#2f3638]'>
+                <div className='relative flex items-center justify-center'>
+                    <BsFillPlayFill
+                        className='invisible absolute z-10 group-hover:visible'
+                        size='80px'
+                        onClick={(e) => handlePlayPlaylist(e)}
+                    />
                     <div
                         style={{
                             backgroundImage: `url(${playlist.img[0].url})`,

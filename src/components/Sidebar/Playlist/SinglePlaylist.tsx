@@ -34,6 +34,7 @@ export const SinglePlaylist: React.FC<SinglePlaylistProps> = ({ playlist }) => {
                     className='ml-3 hidden duration-300 group-hover:flex'
                     size={18}
                     source={playlist.source}
+                    disabled
                 />
             ) : (
                 <AiFillSound size={16} />

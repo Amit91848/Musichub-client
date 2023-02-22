@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { IconType } from 'react-icons'
@@ -6,23 +7,33 @@ import { BiSearch } from 'react-icons/bi'
 import { ImMusic } from 'react-icons/im'
 
 import PlaylistContainer from './Playlist/PlaylistContainer'
+import Modal from '../Modal/Modal'
+import OpenModal from '../Modal/OpenModal'
 
 const Sidebar = () => {
     const router = useRouter()
     return (
-        <>
-            <div className='flex h-full w-[270px] flex-col overflow-scroll text-font shadow-lg'>
-                <div className='mt-5 flex w-full flex-col items-center'>
-                    <div className='h-16'>
+        <div className=''>
+            <div className='items-between relative flex h-[calc(100vh_-_80px)] w-[240px] flex-col text-font shadow-lg'>
+                <div className='absolute bottom-20 top-0 left-0 flex h-full w-full flex-col items-center'>
+                    <div className='relative bottom-4 h-20'>
                         <Link
                             href='/library'
                             className='text-xl normal-case text-font'
                         >
-                            Music Hub
+                            <Image
+                                src='/images/logo.png'
+                                alt='Music Hub'
+                                width={200}
+                                height={280}
+                            />
+                            {/* Music Hub */}
                         </Link>
                     </div>
-                    <h3 className='font-eliteSpecial'>App</h3>
-                    <div className='text mt-1 w-4/5 font-light'>
+                    <h3 className='mt-3 ml-5 self-start font-eliteSpecial'>
+                        App
+                    </h3>
+                    <div className='text mt-2 w-4/5 font-light'>
                         <Link href='/library'>
                             <SidebarNav
                                 Icon={ImMusic}
@@ -41,9 +52,15 @@ const Sidebar = () => {
                         </Link>
                     </div>
                     <PlaylistContainer />
+                    <Modal />
                 </div>
             </div>
-        </>
+            <div className=' absolute bottom-0 flex h-20 w-[240px] justify-evenly border-t border-[#383f41] px-3 py-5'>
+                <OpenModal source='spotify' />
+                <OpenModal source='soundcloud' />
+                <OpenModal source='youtube' />
+            </div>
+        </div>
     )
 }
 
