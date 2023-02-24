@@ -56,46 +56,30 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
         <div className='grid h-20 w-full grid-cols-3 items-center space-x-5 px-2 text-white'>
             <PositionSeek />
             <div className='flex items-center gap-3 overflow-hidden whitespace-nowrap p-1'>
-                {currentTrack.id !== '' ? (
-                    <>
-                        {' '}
-                        <div
-                            className='h-16 min-w-[5rem] rounded-lg border border-[#383f41] bg-cover bg-center bg-no-repeat'
-                            style={
-                                {
-                                    // backgroundImage: `url(${currentTrack?.img[1].url})`,
-                                }
-                            }
-                        ></div>
-                        <div className='text-xs font-light tracking-wide'>
-                            <p className='text-ellipsis'>
-                                {currentTrack?.title}
-                            </p>
-                            {currentTrack.artist?.map((a, index) => (
-                                <ArtistLink
-                                    className='text-[0.725rem]'
-                                    artist={a}
-                                    key={a.id}
-                                    source={currentTrack.source}
-                                    index={index}
-                                />
-                            ))}
-                        </div>{' '}
-                    </>
-                ) : (
-                    <>
-                        {' '}
-                        <div
-                            className='h-16 min-w-[5rem] rounded-lg border border-[#383f41] bg-red-900 bg-cover bg-center bg-no-repeat'
-                            // style={{
-                            //     background
-                            // }}
-                        ></div>
-                        <div className='text-xs font-light tracking-wide'>
-                            <p className='text-ellipsis'>No Song Loaded</p>
-                        </div>{' '}
-                    </>
-                )}
+                <div
+                    className='h-16 min-w-[5rem] rounded-lg border border-[#383f41] bg-cover bg-center bg-no-repeat'
+                    style={
+                        currentTrack.id !== ''
+                            ? {
+                                  backgroundImage: `url(${currentTrack?.img[1].url})`,
+                              }
+                            : {
+                                  backgroundImage: `url(https://icones.pro/wp-content/uploads/2021/03/icone-de-la-musique-jaune.png)`,
+                              }
+                    }
+                ></div>
+                <div className='text-xs font-light tracking-wide'>
+                    <p className='text-ellipsis'>{currentTrack?.title}</p>
+                    {currentTrack.artist?.map((a, index) => (
+                        <ArtistLink
+                            className='text-[0.725rem]'
+                            artist={a}
+                            key={a.id}
+                            source={currentTrack.source}
+                            index={index}
+                        />
+                    ))}
+                </div>{' '}
             </div>
             <div className='flex space-x-3'>
                 <button onClick={handleShuffle}>

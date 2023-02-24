@@ -43,7 +43,7 @@ const initialState: initialState = {
         duration: 0,
         img: [],
         source: "spotify",
-        title: ""
+        title: "Not Playing"
     },
     isMuted: false,
     duration: 0,
