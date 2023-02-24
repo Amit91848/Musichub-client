@@ -19,13 +19,13 @@ const Sidebar = () => {
                     <div className='relative bottom-4 h-20'>
                         <Link
                             href='/library'
-                            className='text-xl normal-case text-font'
+                            className='cursor-pointer text-xl normal-case text-font'
                         >
                             <Image
                                 src='/images/logo.png'
                                 alt='Music Hub'
                                 width={200}
-                                height={280}
+                                height={200}
                             />
                             {/* Music Hub */}
                         </Link>
