@@ -14,9 +14,8 @@ import { RootState, useAppDispatch } from '@/store/store'
 import { CommonPlaylist, CommonTracks } from '@/constant/services'
 
 import Track from './Track'
-import YoutubePlayer from '../SongPlayer/YoutubePlayer'
 
-export const MainContainer: React.FC = () => {
+export const PlaylistContainer: React.FC = () => {
     const router = useRouter()
     const { source, playlistId } = router.query
     const sourceCapital = useRef('')
@@ -53,8 +52,8 @@ export const MainContainer: React.FC = () => {
                 withCredentials: true,
             }
         )
-        const track = response.data.mappedTracks
-        setTracks(response.data.mappedTracks)
+        const track = response.data
+        setTracks(response.data)
         dispatch(
             loadTracksOnPlaylist({
                 tracks: track,
@@ -72,7 +71,7 @@ export const MainContainer: React.FC = () => {
         if (source != undefined) {
             sourceCapital.current =
                 source[0]?.toUpperCase() + source?.substring(1)
-            if (loadedTracks.length === 0) {
+            if (loadedTracks) {
                 fetchTracks()
             } else {
                 setTracks(loadedTracks)
@@ -157,4 +156,4 @@ export const MainContainer: React.FC = () => {
     )
 }
 
-export default MainContainer
+export default PlaylistContainer

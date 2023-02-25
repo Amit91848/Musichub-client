@@ -59,7 +59,7 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
                 <div
                     className='h-16 min-w-[5rem] rounded-lg border border-[#383f41] bg-cover bg-center bg-no-repeat'
                     style={
-                        currentTrack.id !== ''
+                        currentTrack.id !== '' && currentTrack.img !== undefined
                             ? {
                                   backgroundImage: `url(${currentTrack?.img[1].url})`,
                               }

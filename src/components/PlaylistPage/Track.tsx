@@ -99,19 +99,21 @@ export const Track: React.FC<TrackProps> = ({
                     </div>
                 </div>
                 <div className='mr-4 cursor-pointer'>
-                    <Link
+                    <a
                         href={
                             track.source === 'spotify'
                                 ? `https://open.spotify.com/track/${track.id}`
-                                : ``
+                                : `https://www.youtube.com/watch?v=${track.id}`
                         }
+                        target='_blank'
+                        rel='noreferrer'
                     >
                         <ServiceIcon
                             source={track.source}
                             size={23}
                             className='hidden duration-300 group-hover:flex'
                         />
-                    </Link>
+                    </a>
                 </div>
                 <div className='cursor-pointer'>
                     <Dropdown handleAddToQueue={handleAddToQueue} />

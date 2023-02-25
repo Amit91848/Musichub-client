@@ -11,22 +11,16 @@ export const Playlists: React.FC = () => {
     return (
         <div className='space-y-9'>
             {playlists.spotify.length !== 0 && (
-                // <div className='m-auto h-fit w-11/12 rounded-lg bg-dark p-7'>
                 <PlaylistRow source='spotify' playlists={playlists.spotify} />
-                // </div>
             )}
             {playlists.youtube.length !== 0 && (
-                // <div className='m-auto h-fit w-11/12 rounded-lg bg-dark p-7'>
                 <PlaylistRow source='youtube' playlists={playlists.youtube} />
-                // </div>
             )}
             {playlists.soundcloud.length !== 0 && (
-                // <div className='m-auto h-fit w-11/12 rounded-lg bg-dark p-7'>
                 <PlaylistRow
                     source='soundcloud'
                     playlists={playlists.soundcloud}
                 />
-                // </div>
             )}
         </div>
     )

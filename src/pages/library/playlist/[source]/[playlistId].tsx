@@ -1,16 +1,11 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 
-import Layout from '@/components/layout/Layout'
-import MainContainer from '@/components/PlaylistPage/MainContainer'
+import PlaylistContainer from '@/components/PlaylistPage/PlaylistContainer'
 
 interface playlistIdProps {}
 
 export const PlaylistId: React.FC<playlistIdProps> = ({}) => {
-    return (
-        // <Layout>
-        <MainContainer />
-        // </Layout>
-    )
+    return <PlaylistContainer />
 }
 
 export default PlaylistId
