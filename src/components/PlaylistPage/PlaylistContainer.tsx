@@ -126,7 +126,7 @@ export const PlaylistContainer: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {!isLoading ? (
+            {!isLoading && tracks.length > 0 ? (
                 tracks?.map((track) => (
                     <Track
                         isActive={

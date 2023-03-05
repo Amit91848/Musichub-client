@@ -88,6 +88,7 @@ const player = createSlice({
                         index,
                         isPlaying: true,
                         currentTrack: { ...track },
+                        duration: track.duration,
                         queue: [...queue]
                     }
                 } else {
@@ -102,6 +103,7 @@ const player = createSlice({
                             id: playlist.playlistId,
                             source: playlist.source
                         },
+                        duration: track.duration,
                         userQueue: [],
                         userQueueIndex: 0
                     }
@@ -116,6 +118,7 @@ const player = createSlice({
                     index,
                     isPlaying: true,
                     currentTrack: { ...track },
+                    duration: track.duration,
                     queue: [...queue],
                     playlist: {
                         id: '',
@@ -134,6 +137,7 @@ const player = createSlice({
                 return state = {
                     ...state,
                     userQueueIndex: userQueueIndex + 1,
+                    duration: nextTrack.duration,
                     isPlaying: true,
                     currentTrack: { ...nextTrack },
                 }
@@ -147,7 +151,8 @@ const player = createSlice({
                 ...state,
                 index: changeTo,
                 isPlaying: true,
-                currentTrack: { ...newTrack }
+                currentTrack: { ...newTrack },
+                duration: newTrack.duration
             }
         },
         toggleShuffle: (state) => {

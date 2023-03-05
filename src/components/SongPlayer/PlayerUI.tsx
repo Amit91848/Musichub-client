@@ -1,11 +1,7 @@
 import React from 'react'
-import { AiOutlinePauseCircle, AiOutlinePlayCircle } from 'react-icons/ai'
-import {
-    BiRepeat,
-    BiShuffle,
-    BiSkipNextCircle,
-    BiSkipPreviousCircle,
-} from 'react-icons/bi'
+import { AiOutlinePause } from 'react-icons/ai'
+import { BiRepeat, BiShuffle, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
+import { BsFillPlayFill } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 
 import {
@@ -24,10 +20,15 @@ interface PlayerUIProps {
     shuffleEnabled: boolean
 }
 
-export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
-    const { currentTrack, isPlaying } = useSelector(
+export const PlayerUI: React.FC<PlayerUIProps> = ({}) => {
+    const { currentTrack, isPlaying, shuffleEnabled, duration } = useSelector(
         (state: RootState) => state.player
     )
+    function millisToMinutesAndSeconds(millis: number) {
+        const minutes = Math.floor(millis / 60000)
+        const seconds = parseInt(((millis % 60000) / 1000).toFixed(0))
+        return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+    }
     const dispatch = useAppDispatch()
     const nextTrack = () => {
         dispatch(changeTrack(1))
@@ -81,33 +82,42 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({ shuffleEnabled }) => {
                     ))}
                 </div>{' '}
             </div>
-            <div className='flex space-x-3'>
+            <div className='flex items-center space-x-4'>
                 <button onClick={handleShuffle}>
                     {shuffleEnabled ? (
-                        <BiShuffle size={30} />
+                        <BiShuffle size={20} />
                     ) : (
-                        <BiShuffle size={30} />
+                        <BiShuffle size={20} />
                     )}
                 </button>
-                <button onClick={previousTrack}>
-                    <BiSkipPreviousCircle size={30} />
-                </button>
-                {isPlaying ? (
-                    <button onClick={pauseMusic}>
-                        <AiOutlinePauseCircle size={60} />
+                <div className='text-xs font-light text-lightSupport'>0:00</div>
+                <div className='flex items-center justify-center rounded-full border'>
+                    <button onClick={previousTrack}>
+                        <BiSkipPrevious size={30} />
                     </button>
-                ) : (
-                    <button onClick={playMusic}>
-                        <AiOutlinePlayCircle size={60} />
+                </div>
+                <div className='flex items-center justify-center rounded-full border'>
+                    {isPlaying ? (
+                        <button onClick={pauseMusic}>
+                            <AiOutlinePause size={50} />
+                        </button>
+                    ) : (
+                        <button onClick={playMusic}>
+                            <BsFillPlayFill size={50} />
+                        </button>
+                    )}
+                </div>
+                <div className='flex items-center justify-center rounded-full border'>
+                    <button onClick={nextTrack}>
+                        <BiSkipNext size={30} />
                     </button>
-                )}
-                <button onClick={nextTrack}>
-                    <BiSkipNextCircle size={30} />
-                </button>
+                </div>
+                <div className='text-xs font-light text-lightSupport'>
+                    {millisToMinutesAndSeconds(duration)}
+                </div>
                 <button>
-                    <BiRepeat size={30} />
+                    <BiRepeat size={20} />
                 </button>
-                <button onClick={handleEmptyQueue}>Emtpy Queue</button>
             </div>
             <div className='flex items-center justify-self-end'>
                 <VolumeController />
