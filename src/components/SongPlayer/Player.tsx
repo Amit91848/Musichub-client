@@ -14,27 +14,23 @@ export const Player: React.FC<PlayerProps> = ({}) => {
     const { shuffleEnabled, currentTrack, isPlaying, volume, duration } =
         useSelector((state: RootState) => state.player)
     const [inputSeekPosition, setInputSeekPosition] = useState(0)
-    const [songPosition, setSongPosition] = useState(0)
     const spotifyPlayer = useRef<SpotifyWebPlaybackSDK | null>(null)
-    const youtubePlayer = useRef()
+    const youtubePlayer = useRef<YT.Player>()
 
     const handleSeek = (value: number) => {
         const seconds = duration / 100
+        // Time in milliseconds
         const newTime = Math.round(value * seconds)
-        console.log(newTime)
         const { source } = currentTrack
 
         if (source === 'spotify') {
             console.log('spotifyplayer in player: ', spotifyPlayer)
             spotifyPlayer.current?.seek(newTime)
+        } else if (source === 'youtube') {
+            youtubePlayer.current?.seekTo(newTime / 1000, true)
         }
     }
 
-    const updateSongPosition = (value: number, duration: number) => {
-        const seconds = duration / 100
-        const newTime = Math.round(value * seconds)
-        setSongPosition(newTime)
-    }
     return (
         <>
             <div className=''>
@@ -47,18 +43,17 @@ export const Player: React.FC<PlayerProps> = ({}) => {
             </div>
             <div className='absolute bottom-0 z-10 mt-3 w-full bg-dark'>
                 <PlayerUI
-                    updateSongPosition={updateSongPosition}
+                    // updateSongPosition={updateSongPosition}
                     inputSeekPosition={inputSeekPosition}
                     setInputSeekPosition={setInputSeekPosition}
                     shuffleEnabled={shuffleEnabled}
-                    songPosition={songPosition}
                     handleSeek={handleSeek}
                 />
                 <SpotifyPlayer
-                    forwardRef={spotifyPlayer}
+                    spotifyRef={spotifyPlayer}
                     currentTrack={currentTrack}
                     isPlaying={isPlaying}
-                    songPosition={songPosition}
+                    // songPosition={songPosition}
                 />
             </div>
         </>

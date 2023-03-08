@@ -3,16 +3,12 @@ import React, { useState } from 'react'
 interface PositionSeekProps {
     seekPosition: number
     setSeekPosition: React.Dispatch<React.SetStateAction<number>>
-    updateSongPosition: (value: number, duration: number) => void
-    duration: number
     handleSeek: (position: number) => void
 }
 
 export const PositionSeek: React.FC<PositionSeekProps> = ({
     seekPosition,
     setSeekPosition,
-    updateSongPosition,
-    duration,
     handleSeek,
 }) => {
     return (

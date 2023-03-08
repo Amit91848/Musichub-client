@@ -12,15 +12,16 @@ import { SpotifyWebPlaybackSDK } from './utils/SpotifyWebPlaybackSDK'
 interface PlayerContainerProps {
     currentTrack: CommonTracks
     isPlaying: boolean
-    songPosition: number
-    forwardRef: React.MutableRefObject<SpotifyWebPlaybackSDK | null>
+    // songPosition: number
+    spotifyRef: React.MutableRefObject<SpotifyWebPlaybackSDK | null>
 }
 
-export const SpotifyPlayer: React.FC<
-    PlayerContainerProps & {
-        forwardRef: React.RefObject<SpotifyWebPlaybackSDK>
-    }
-> = ({ currentTrack, isPlaying, songPosition, forwardRef }) => {
+export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
+    currentTrack,
+    isPlaying,
+    // songPosition,
+    spotifyRef,
+}) => {
     useSpotifyWebPlaybackSDKScript()
 
     const dispatch = useAppDispatch()
@@ -29,21 +30,24 @@ export const SpotifyPlayer: React.FC<
     const { volume } = useSelector((state: RootState) => state.player)
 
     useEffect(() => {
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            if (!player.current) {
-                player.current = new SpotifyWebPlaybackSDK('Music Hub', 0.5)
-                player.current.initPlayer()
-                if (forwardRef.current == null) {
-                    console.log('inside forwardRef')
-                    forwardRef.current = player.current
+        if (!spotifyRef.current) {
+            window.onSpotifyWebPlaybackSDKReady = () => {
+                console.log('inside onSpotifyWebPlaybackSDKReady')
+                if (!player.current) {
+                    player.current = new SpotifyWebPlaybackSDK('Music Hub', 0.5)
+                    console.log('setting ref for spotifyRef')
+                    spotifyRef.current = player.current
+                    player.current.initPlayer()
                 }
             }
         }
 
         return () => {
-            player.current = null
+            if (spotifyRef.current) {
+                player.current = null
+            }
         }
-    }, [forwardRef])
+    }, [spotifyRef.current])
 
     useEffect(() => {
         if (
@@ -52,7 +56,7 @@ export const SpotifyPlayer: React.FC<
             currentTrack.source === 'spotify' &&
             isPlaying
         ) {
-            player.current.load(currentTrack.id, songPosition)
+            player.current.load(currentTrack.id)
         } else if (player.current && currentTrack.source !== 'spotify') {
             player.current.pause()
         } else if (player.current === null) {
@@ -63,7 +67,7 @@ export const SpotifyPlayer: React.FC<
                 }
             }
         }
-    }, [currentTrack, player.current, songPosition])
+    }, [currentTrack, player.current])
 
     useEffect(() => {
         if (currentTrack.source === 'spotify' && player.current) {

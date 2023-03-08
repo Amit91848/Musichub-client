@@ -12,7 +12,6 @@ export const appendSpotifySDKScriptToDOM = () => {
     const spotifyScript = document.createElement('script')
     spotifyScript.id = 'spotify-script'
     spotifyScript.src = 'https://sdk.scdn.co/spotify-player.js'
-    spotifyScript.async = true
     document.head.append(spotifyScript)
 }
 

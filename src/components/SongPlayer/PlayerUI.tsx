@@ -20,16 +20,12 @@ interface PlayerUIProps {
     shuffleEnabled: boolean
     inputSeekPosition: number
     setInputSeekPosition: React.Dispatch<React.SetStateAction<number>>
-    updateSongPosition: (value: number, duration: number) => void
-    songPosition: number
     handleSeek: (position: number) => void
 }
 
 export const PlayerUI: React.FC<PlayerUIProps> = ({
     inputSeekPosition,
     setInputSeekPosition,
-    updateSongPosition,
-    songPosition,
     handleSeek,
 }) => {
     const { currentTrack, isPlaying, shuffleEnabled, duration } = useSelector(
@@ -41,28 +37,21 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
         return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
     }
 
-    const [seekBarInterval, setSeekBarInterval] = useState<NodeJS.Timer>()
-
     const dispatch = useAppDispatch()
     const nextTrack = () => {
         dispatch(changeTrack(1))
         setInputSeekPosition(0)
-        updateSongPosition(0, duration)
-        // deleteInterval()
     }
 
     const previousTrack = () => {
         dispatch(changeTrack(-1))
         setInputSeekPosition(0)
-        updateSongPosition(0, duration)
-        // deleteInterval()
     }
 
     const pauseMusic = () => {
         dispatch(handlePlayPause(false))
     }
     const playMusic = () => {
-        // player.current?.play()
         dispatch(handlePlayPause(true))
     }
 
@@ -78,8 +67,8 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
             <PositionSeek
                 seekPosition={inputSeekPosition}
                 setSeekPosition={setInputSeekPosition}
-                updateSongPosition={updateSongPosition}
-                duration={duration}
+                // updateSongPosition={updateSongPosition}
+                // duration={duration}
                 handleSeek={handleSeek}
             />
             <div className='flex items-center gap-3 overflow-hidden whitespace-nowrap p-1'>
@@ -116,9 +105,7 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
                         <BiShuffle size={20} />
                     )}
                 </button>
-                <div className='text-xs font-light text-lightSupport'>
-                    {millisToMinutesAndSeconds(songPosition)}
-                </div>
+                <div className='text-xs font-light text-lightSupport'></div>
                 <div className='flex items-center justify-center rounded-full border'>
                     <button onClick={previousTrack}>
                         <BiSkipPrevious size={30} />

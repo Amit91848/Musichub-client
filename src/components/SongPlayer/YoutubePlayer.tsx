@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
 import { CommonTracks } from '@/constant/services'
@@ -7,7 +7,7 @@ interface YoutubePlayerProps {
     currentTrack: CommonTracks
     isPlaying: boolean
     volume: number
-    forwardRef: React.MutableRefObject<undefined>
+    forwardRef: React.MutableRefObject<YT.Player | undefined>
 }
 
 export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
@@ -17,13 +17,7 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     forwardRef,
 }) => {
     const [videoId, setVideoId] = useState<string | undefined>(undefined)
-    const [playerTarget, setPlayerTarget] = useState()
-
-    const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-        // access to player in all event handlers via event.target
-        // event.target.pauseVideo()
-        setPlayerTarget(event.target)
-    }
+    const player = useRef<YT.Player>()
 
     const onStateChange: YouTubeProps['onStateChange'] = (event) => {}
 
@@ -48,20 +42,25 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     }, [currentTrack])
 
     useEffect(() => {
-        if (playerTarget) {
+        if (player.current) {
             if (isPlaying && currentTrack.source === 'youtube') {
-                playerTarget.playVideo()
+                player.current.playVideo()
             } else {
-                playerTarget.pauseVideo()
+                player.current.pauseVideo()
             }
         }
     }, [isPlaying])
 
     useEffect(() => {
-        if (playerTarget && currentTrack.source === 'youtube') {
-            playerTarget.setVolume(volume)
+        if (player.current && currentTrack.source === 'youtube') {
+            player.current.setVolume(volume * 100)
         }
     }, [volume])
+
+    const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+        forwardRef.current = event.target
+        player.current = event.target
+    }
 
     return (
         <YouTube
