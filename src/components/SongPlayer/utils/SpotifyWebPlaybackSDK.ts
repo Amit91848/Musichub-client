@@ -76,7 +76,11 @@ export class SpotifyWebPlaybackSDK {
         return this.player?.pause()
     }
 
-    async load(trackId: string, position: number = 0) {
+    async seek(position: number) {
+        await this.player?.seek(position);
+    }
+
+    async load(trackId: string, position = 0) {
         this.fetchAndSetToken;
         const url = "https://api.spotify.com/v1/me/player/play?device_id=" + this.deviceId;
         fetch(url, {

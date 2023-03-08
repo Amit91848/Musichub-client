@@ -4,7 +4,7 @@ import clsxm from '@/lib/clsxm'
 
 import { source } from '@/constant/services'
 
-import ServiceIcon from '../ServiceIcon/ServiceIcon'
+import ServiceIcon from '../../ServiceIcon/ServiceIcon'
 
 interface OpenModalProps {
     source: source

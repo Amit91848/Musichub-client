@@ -7,8 +7,8 @@ import { BiSearch } from 'react-icons/bi'
 import { ImMusic } from 'react-icons/im'
 
 import PlaylistContainer from './Playlist/PlaylistContainer'
-import Modal from '../Modal/Modal'
-import OpenModal from '../Modal/OpenModal'
+import Modal from '../Modal/Account/Modal'
+import OpenModal from '../Modal/Account/OpenModal'
 
 const Sidebar = () => {
     const router = useRouter()

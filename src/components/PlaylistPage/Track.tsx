@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { Audio } from 'react-loader-spinner'
@@ -17,7 +16,7 @@ import ServiceIcon from '../ServiceIcon/ServiceIcon'
 interface TrackProps {
     track: CommonTracks
     isActive: boolean
-    handlePlay: (track: CommonTracks) => void
+    handlePlay?: (track: CommonTracks) => void
 }
 
 export const Track: React.FC<TrackProps> = ({
@@ -62,7 +61,9 @@ export const Track: React.FC<TrackProps> = ({
                                 <BsFillPlayFill
                                     className='cursor-pointer'
                                     onClick={() => {
-                                        handlePlay(track)
+                                        if (handlePlay) {
+                                            handlePlay(track)
+                                        }
                                     }}
                                     color='#f7f7f7'
                                     size={35}

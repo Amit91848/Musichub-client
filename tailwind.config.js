@@ -33,6 +33,8 @@ module.exports = {
                 greenBg: '#192124',
                 contentBg: '#1b2326',
                 textYellow: '#bda356',
+                queueBg: '#232a2d',
+                borderGray: '#383f41',
             },
             keyframes: {
                 flicker: {

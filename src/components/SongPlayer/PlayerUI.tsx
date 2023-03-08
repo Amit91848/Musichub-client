@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlinePause } from 'react-icons/ai'
 import { BiRepeat, BiShuffle, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
 import { BsFillPlayFill } from 'react-icons/bs'
@@ -18,9 +18,20 @@ import ArtistLink from '../PlaylistPage/ArtistLink'
 
 interface PlayerUIProps {
     shuffleEnabled: boolean
+    inputSeekPosition: number
+    setInputSeekPosition: React.Dispatch<React.SetStateAction<number>>
+    updateSongPosition: (value: number, duration: number) => void
+    songPosition: number
+    handleSeek: (position: number) => void
 }
 
-export const PlayerUI: React.FC<PlayerUIProps> = ({}) => {
+export const PlayerUI: React.FC<PlayerUIProps> = ({
+    inputSeekPosition,
+    setInputSeekPosition,
+    updateSongPosition,
+    songPosition,
+    handleSeek,
+}) => {
     const { currentTrack, isPlaying, shuffleEnabled, duration } = useSelector(
         (state: RootState) => state.player
     )
@@ -29,13 +40,22 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({}) => {
         const seconds = parseInt(((millis % 60000) / 1000).toFixed(0))
         return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
     }
+
+    const [seekBarInterval, setSeekBarInterval] = useState<NodeJS.Timer>()
+
     const dispatch = useAppDispatch()
     const nextTrack = () => {
         dispatch(changeTrack(1))
+        setInputSeekPosition(0)
+        updateSongPosition(0, duration)
+        // deleteInterval()
     }
 
     const previousTrack = () => {
         dispatch(changeTrack(-1))
+        setInputSeekPosition(0)
+        updateSongPosition(0, duration)
+        // deleteInterval()
     }
 
     const pauseMusic = () => {
@@ -55,7 +75,13 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({}) => {
     }
     return (
         <div className='grid h-20 w-full grid-cols-3 items-center space-x-5 px-2 text-white'>
-            <PositionSeek />
+            <PositionSeek
+                seekPosition={inputSeekPosition}
+                setSeekPosition={setInputSeekPosition}
+                updateSongPosition={updateSongPosition}
+                duration={duration}
+                handleSeek={handleSeek}
+            />
             <div className='flex items-center gap-3 overflow-hidden whitespace-nowrap p-1'>
                 <div
                     className='h-16 min-w-[5rem] rounded-lg border border-[#383f41] bg-cover bg-center bg-no-repeat'
@@ -90,7 +116,9 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({}) => {
                         <BiShuffle size={20} />
                     )}
                 </button>
-                <div className='text-xs font-light text-lightSupport'>0:00</div>
+                <div className='text-xs font-light text-lightSupport'>
+                    {millisToMinutesAndSeconds(songPosition)}
+                </div>
                 <div className='flex items-center justify-center rounded-full border'>
                     <button onClick={previousTrack}>
                         <BiSkipPrevious size={30} />

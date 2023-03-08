@@ -9,7 +9,7 @@ interface DropdownProps {
 
 export const Dropdown: React.FC<DropdownProps> = ({ handleAddToQueue }) => {
     return (
-        <div className='dropdown dropdown-end dropdown-hover compact'>
+        <div className='dropdown-end dropdown-hover dropdown compact'>
             <label
                 tabIndex={0}
                 className='btn m-1 border-none bg-transparent hover:bg-transparent'

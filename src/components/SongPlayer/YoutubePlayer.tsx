@@ -7,12 +7,14 @@ interface YoutubePlayerProps {
     currentTrack: CommonTracks
     isPlaying: boolean
     volume: number
+    forwardRef: React.MutableRefObject<undefined>
 }
 
 export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     currentTrack,
     isPlaying,
     volume,
+    forwardRef,
 }) => {
     const [videoId, setVideoId] = useState<string | undefined>(undefined)
     const [playerTarget, setPlayerTarget] = useState()

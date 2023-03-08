@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 import { changeTrack } from '@/store/reducers/player'
 import { RootState, useAppDispatch } from '@/store/store'
@@ -7,17 +8,19 @@ import { CommonTracks } from '@/constant/services'
 
 import { useSpotifyWebPlaybackSDKScript } from './utils'
 import { SpotifyWebPlaybackSDK } from './utils/SpotifyWebPlaybackSDK'
-import { useSelector } from 'react-redux'
 
 interface PlayerContainerProps {
     currentTrack: CommonTracks
     isPlaying: boolean
+    songPosition: number
+    forwardRef: React.MutableRefObject<SpotifyWebPlaybackSDK | null>
 }
 
-export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
-    currentTrack,
-    isPlaying,
-}) => {
+export const SpotifyPlayer: React.FC<
+    PlayerContainerProps & {
+        forwardRef: React.RefObject<SpotifyWebPlaybackSDK>
+    }
+> = ({ currentTrack, isPlaying, songPosition, forwardRef }) => {
     useSpotifyWebPlaybackSDKScript()
 
     const dispatch = useAppDispatch()
@@ -30,13 +33,17 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             if (!player.current) {
                 player.current = new SpotifyWebPlaybackSDK('Music Hub', 0.5)
                 player.current.initPlayer()
+                if (forwardRef.current == null) {
+                    console.log('inside forwardRef')
+                    forwardRef.current = player.current
+                }
             }
         }
 
         return () => {
             player.current = null
         }
-    }, [])
+    }, [forwardRef])
 
     useEffect(() => {
         if (
@@ -45,7 +52,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             currentTrack.source === 'spotify' &&
             isPlaying
         ) {
-            player.current.load(currentTrack.id)
+            player.current.load(currentTrack.id, songPosition)
         } else if (player.current && currentTrack.source !== 'spotify') {
             player.current.pause()
         } else if (player.current === null) {
@@ -56,7 +63,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
                 }
             }
         }
-    }, [currentTrack, player.current])
+    }, [currentTrack, player.current, songPosition])
 
     useEffect(() => {
         if (currentTrack.source === 'spotify' && player.current) {
@@ -66,7 +73,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
     }, [isPlaying])
 
     useEffect(() => {
-        console.log(player.current)
+        console.log('song ended changed: ', player.current)
         if (player.current && player.current.songEnded) {
             dispatch(changeTrack(1))
         }
