@@ -26,6 +26,7 @@ export const PlaylistContainer: React.FC = () => {
 
     const dispatch = useAppDispatch()
     const playlists = useSelector((state: RootState) => state.library.playlists)
+    // @ts-expect-error query type error
     const currentPlaylist: CommonPlaylist = playlists[source]?.find(
         (p: CommonPlaylist) => p.playlistId === playlistId
     )
@@ -52,7 +53,9 @@ export const PlaylistContainer: React.FC = () => {
         dispatch(
             loadTracksOnPlaylist({
                 tracks: track,
+                // @ts-expect-error query type error
                 playlistId: playlistId,
+                // @ts-expect-error query type error
                 source: source,
             })
         )
@@ -65,6 +68,7 @@ export const PlaylistContainer: React.FC = () => {
             document.title = `Music Hub | ${currentPlaylist.name}`
         if (source != undefined) {
             sourceCapital.current =
+                // @ts-expect-error query type error
                 source[0]?.toUpperCase() + source?.substring(1)
             if (loadedTracks) {
                 fetchTracks()

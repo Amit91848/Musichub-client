@@ -53,7 +53,7 @@ export class SpotifyWebPlaybackSDK {
         this.deviceId = deviceId;
     }
 
-    async fetchAndSetToken(cb) {
+    async fetchAndSetToken(cb: (arg0: string) => void) {
         return this.fetchToken()
             .then(token => {
                 console.log('setting accesstoken ', token)
