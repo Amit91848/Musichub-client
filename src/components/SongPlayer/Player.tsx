@@ -24,7 +24,6 @@ export const Player: React.FC = () => {
         const { source } = currentTrack
 
         if (source === 'spotify') {
-            // console.log('spotifyplayer in player: ', spotifyPlayer)
             spotifyPlayer.current?.seek(newTime)
         } else if (source === 'youtube') {
             youtubePlayer.current?.seekTo(newTime / 1000, true)

@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { useState } from 'react'
 import { AiFillYoutube } from 'react-icons/ai'
 import { BsSpotify } from 'react-icons/bs'
 
@@ -7,26 +6,21 @@ import ButtonLink from '@/components/links/ButtonLink'
 import Seo from '@/components/Seo'
 
 export default function Login() {
-    const [mode, _] = useState<'dark' | 'light'>('dark')
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
+    const _ = process.env.NODE_ENV
     return (
-        // <Layout>
         <>
             <Seo templateTitle='Login Page' />
             <main>
                 <section
                     className={clsx(
-                        // mode === 'dark' ? 'bg-dark' : 'bg-light',
                         'flex min-h-screen overflow-clip bg-cover bg-center bg-no-repeat',
                         'bg-[url(https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg)] brightness-90'
                     )}
                 >
                     <div
                         className={clsx(
-                            'm-auto flex h-56 w-96 rounded-lg shadow-lg backdrop-blur-3xl backdrop-filter',
-                            mode === 'dark'
-                                ? 'bg-darkSupport/20'
-                                : 'bg-white/20'
+                            'm-auto flex h-56 w-96 rounded-lg shadow-lg backdrop-blur-3xl backdrop-filter'
                         )}
                     >
                         <div className='text- my-auto flex w-full flex-col items-center'>
@@ -53,7 +47,6 @@ export default function Login() {
                     </div>
                 </section>
             </main>
-            {/* </Layout> */}
         </>
     )
 }

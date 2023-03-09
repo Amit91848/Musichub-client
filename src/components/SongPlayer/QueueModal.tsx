@@ -25,7 +25,7 @@ export const QueueModal: React.FC<QueueModalProps> = ({
         <div
             className={clsxm(
                 'absolute h-[300px] max-h-96 w-[400px] overflow-y-hidden rounded-lg border border-[#383f41] shadow-lg',
-                showQueueModal
+                !showQueueModal
                     ? '-bottom-[100vw] -right-[100vh]'
                     : 'right-7 bottom-24'
             )}

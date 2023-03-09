@@ -46,7 +46,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             }
         }
         //eslint-disable-next-line
-    }, [spotifyRef.current])
+    }, [])
 
     useEffect(() => {
         if (
@@ -62,6 +62,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             window.onSpotifyWebPlaybackSDKReady = () => {
                 if (!player.current) {
                     player.current = new SpotifyWebPlaybackSDK('Music Hub', 0.5)
+                    spotifyRef.current = player.current
                     player.current.initPlayer()
                 }
             }

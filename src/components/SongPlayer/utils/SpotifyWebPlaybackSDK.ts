@@ -148,10 +148,11 @@ export class SpotifyWebPlaybackSDK {
         });
     }
 
+    //eslint-disable-next-line
     handleStateChange(state: Spotify.PlaybackState) {
-        if (!state.paused && !state.loading && state.track_window.previous_tracks.find(x => x.id === state.track_window.current_track.id)) {
-            console.log('song ended in handleState change')
-            this.songEnded = true
-        }
+        // if (!state.paused && !state.loading && state.track_window.previous_tracks.find(x => x.id === state.track_window.current_track.id)) {
+        //     // console.log('song ended in handleState change')
+        //     // this.songEnded = true
+        // }
     }
 }

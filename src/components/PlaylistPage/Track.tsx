@@ -24,7 +24,10 @@ export const Track: React.FC<TrackProps> = ({
     isActive,
     handlePlay,
 }) => {
-    const { url } = track.img[2]
+    let url = ''
+    if (track.img[2]) {
+        url = track.img[2].url
+    }
 
     const dispatch = useAppDispatch()
     function millisToMinutesAndSeconds(millis: number) {
