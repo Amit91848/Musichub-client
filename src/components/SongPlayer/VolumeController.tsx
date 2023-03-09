@@ -11,9 +11,9 @@ import { useAppDispatch } from '@/store/store'
 
 import QueueModal from './QueueModal'
 
-interface VolumeControllerProps {}
+// interface VolumeControllerProps {}
 
-export const VolumeController: React.FC<VolumeControllerProps> = ({}) => {
+export const VolumeController: React.FC = () => {
     const [volume, setVolume] = useState(0.5)
     const dispatch = useAppDispatch()
 

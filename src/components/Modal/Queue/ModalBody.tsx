@@ -3,10 +3,7 @@ import { useSelector } from 'react-redux'
 
 import Track from '@/components/PlaylistPage/Track'
 
-import { RootState, useAppDispatch } from '@/store/store'
-
-import { CommonPlaylist, CommonTracks } from '@/constant/services'
-import { play } from '@/store/reducers/player'
+import { RootState } from '@/store/store'
 
 interface ModalSubheadingProps {
     subheading: string
@@ -17,10 +14,8 @@ export const ModalBody: React.FC<ModalSubheadingProps> = ({
     subheading,
     type,
 }) => {
-    const { currentTrack, queue, userQueue, index, userQueueIndex, playlist } =
+    const { currentTrack, queue, userQueue, index, userQueueIndex } =
         useSelector((state: RootState) => state.player)
-
-    const dispatch = useAppDispatch()
 
     // const handlePlay = (track: CommonTracks) => {
     //     dispatch(play({ track, playlist: currentPlaylist }))

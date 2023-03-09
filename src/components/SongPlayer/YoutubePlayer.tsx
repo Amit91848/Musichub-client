@@ -19,7 +19,7 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     const [videoId, setVideoId] = useState<string | undefined>(undefined)
     const player = useRef<YT.Player>()
 
-    const onStateChange: YouTubeProps['onStateChange'] = (event) => {}
+    // const onStateChange: YouTubeProps['onStateChange'] = (event) => {}
 
     const opts: YouTubeProps['opts'] = {
         height: '390',
@@ -49,12 +49,14 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
                 player.current.pauseVideo()
             }
         }
+        // eslint-disable-next-line
     }, [isPlaying])
 
     useEffect(() => {
         if (player.current && currentTrack.source === 'youtube') {
             player.current.setVolume(volume * 100)
         }
+        // eslint-disable-next-line
     }, [volume])
 
     const onPlayerReady: YouTubeProps['onReady'] = (event) => {
@@ -67,7 +69,7 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
             videoId={videoId}
             opts={opts}
             onReady={onPlayerReady}
-            onStateChange={onStateChange}
+            // onStateChange={onStateChange}
         />
     )
 }

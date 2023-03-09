@@ -1,12 +1,13 @@
 import { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import '@/styles/globals.css'
 
-import { persistor, store } from '@/store/store'
 import Layout from '@/components/layout/Layout'
-import { useRouter } from 'next/router'
+
+import { persistor, store } from '@/store/store'
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 // import '@/styles/colors.css';
 

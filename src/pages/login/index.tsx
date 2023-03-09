@@ -3,12 +3,11 @@ import { useState } from 'react'
 import { AiFillYoutube } from 'react-icons/ai'
 import { BsSpotify } from 'react-icons/bs'
 
-import Layout from '@/components/layout/Layout'
 import ButtonLink from '@/components/links/ButtonLink'
 import Seo from '@/components/Seo'
 
 export default function Login() {
-    const [mode, useMode] = useState<'dark' | 'light'>('dark')
+    const [mode, _] = useState<'dark' | 'light'>('dark')
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     return (
         // <Layout>

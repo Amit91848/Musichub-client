@@ -26,15 +26,10 @@ export const PlaylistContainer: React.FC = () => {
 
     const dispatch = useAppDispatch()
     const playlists = useSelector((state: RootState) => state.library.playlists)
-    const playerPlaylist = useSelector(
-        (state: RootState) => state.player.currentTrack
-    )
     const currentPlaylist: CommonPlaylist = playlists[source]?.find(
         (p: CommonPlaylist) => p.playlistId === playlistId
     )
-    const { currentTrack, isPlaying } = useSelector(
-        (state: RootState) => state.player
-    )
+    const { currentTrack } = useSelector((state: RootState) => state.player)
 
     const imgUrl = currentPlaylist?.img[0].url
     const width = currentPlaylist?.img[0].width
@@ -77,6 +72,7 @@ export const PlaylistContainer: React.FC = () => {
                 setTracks(loadedTracks)
             }
         }
+        //eslint-disable-next-line
     }, [playlistId, source])
 
     return (

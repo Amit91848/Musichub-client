@@ -8,9 +8,9 @@ import SearchTracks from './SearchTracks'
 import ShowHideButtons, { Contents } from './ShowHideButtons'
 import SpotifySearchArtists from './SpotifySearchArtists'
 
-interface SearchContainerProps {}
+// interface SearchContainerProps {}
 
-export const SearchContainer: React.FC<SearchContainerProps> = ({}) => {
+export const SearchContainer: React.FC = () => {
     const router = useRouter()
     const { query } = router.query
 

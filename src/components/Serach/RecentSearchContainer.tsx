@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 
 import SearchBox from './SearchBox'
 
-interface RecentSearchContainerProps {}
+// interface RecentSearchContainerProps {}
 
-export const RecentSearchContainer: React.FC<
-    RecentSearchContainerProps
-> = ({}) => {
-    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
+export const RecentSearchContainer: React.FC = () => {
+    // const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
+    //eslint-disable-next-line
     const [searches, setSearches] = useState<string[]>([])
     return (
         // <div className='h-full w-full bg-darkSupport p-8 text-lightSupport'>

@@ -12,7 +12,6 @@ export const PlaylistContainer: React.FC = () => {
     const { spotify, youtube, soundcloud } = useSelector(
         (state: RootState) => state.library.playlists
     )
-    const user = useSelector((state: RootState) => state.user)
 
     return (
         <>

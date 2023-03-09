@@ -12,9 +12,9 @@ import { artistInfo, CommonTracks, lastFmArtistInfo } from '@/constant/services'
 
 import Track from '../PlaylistPage/Track'
 
-interface ContainerProps {}
+// interface ContainerProps {}
 
-export const ArtistContainer: React.FC<ContainerProps> = ({}) => {
+export const ArtistContainer: React.FC = () => {
     const router = useRouter()
     const { source, artistId, artistName } = router.query
     const [artistInfo, setArtistInfo] = useState<lastFmArtistInfo>()
@@ -34,9 +34,7 @@ export const ArtistContainer: React.FC<ContainerProps> = ({}) => {
         dispatch(play({ track, trackList: queue }))
     }
 
-    const { currentTrack, isPlaying } = useSelector(
-        (state: RootState) => state.player
-    )
+    const { currentTrack } = useSelector((state: RootState) => state.player)
 
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
     const fetchArtistInfo = async () => {
@@ -55,6 +53,7 @@ export const ArtistContainer: React.FC<ContainerProps> = ({}) => {
         if (artistName) {
             fetchArtistInfo()
         }
+        //eslint-disable-next-line
     }, [artistName])
     return (
         // <div className='flex h-full w-full overflow-scroll bg-darkSupport py-10 text-lightSupport transition'>

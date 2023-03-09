@@ -17,11 +17,11 @@ export default function LibraryPage() {
         dispatch(updatePlaylists(res.data))
     }
     React.useEffect(() => {
-        async function getUserData() {
-            const res = await axios.get(`${backendURL}/api/user`, {
-                withCredentials: true,
-            })
-        }
+        // async function getUserData() {
+        //     const res = await axios.get(`${backendURL}/api/user`, {
+        //         withCredentials: true,
+        //     })
+        // }
         // getUserData()
         // getAllPlaylists()
     }, [])

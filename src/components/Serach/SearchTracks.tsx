@@ -36,7 +36,7 @@ export const SearchTracks: React.FC<SpotifySearchTracksProps> = ({
     )
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [tracks, setTracks] = useState<CommonTracks[]>([])
-    const [next, setNext] = useState('')
+    const [, setNext] = useState('')
 
     const dispatch = useAppDispatch()
 
@@ -71,6 +71,7 @@ export const SearchTracks: React.FC<SpotifySearchTracksProps> = ({
         } else if (source === 'youtube') {
             fetchYoutubeSearchQuery()
         }
+        //eslint-disable-next-line
     }, [query])
     return (
         <div className='h-full w-full rounded-lg bg-darkSupport/40 p-6'>

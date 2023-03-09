@@ -20,6 +20,7 @@ export const SinglePlaylist: React.FC<SinglePlaylistProps> = ({ playlist }) => {
 
     useEffect(() => {
         setIsCurrentPlaylistPlaying(playlistPlaying.id === playlist.playlistId)
+        //eslint-disable-next-line
     }, [playlistPlaying])
     return (
         <div className='group flex w-full cursor-pointer items-center justify-between text-left transition hover:scale-105 hover:text-white'>

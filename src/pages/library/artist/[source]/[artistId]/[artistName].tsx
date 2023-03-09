@@ -1,9 +1,10 @@
-import ArtistContainer from '@/components/ArtistPage/ArtistContainer'
 import React from 'react'
 
-interface artistIdProps {}
+import ArtistContainer from '@/components/ArtistPage/ArtistContainer'
 
-export const artistId: React.FC<artistIdProps> = ({}) => {
+// interface artistIdProps {}
+
+export const artistId: React.FC = () => {
     return (
         // <div>
         <ArtistContainer />

@@ -32,10 +32,8 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
     useEffect(() => {
         if (!spotifyRef.current) {
             window.onSpotifyWebPlaybackSDKReady = () => {
-                console.log('inside onSpotifyWebPlaybackSDKReady')
                 if (!player.current) {
                     player.current = new SpotifyWebPlaybackSDK('Music Hub', 0.5)
-                    console.log('setting ref for spotifyRef')
                     spotifyRef.current = player.current
                     player.current.initPlayer()
                 }
@@ -47,6 +45,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
                 player.current = null
             }
         }
+        //eslint-disable-next-line
     }, [spotifyRef.current])
 
     useEffect(() => {
@@ -67,6 +66,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
                 }
             }
         }
+        //eslint-disable-next-line
     }, [currentTrack, player.current])
 
     useEffect(() => {
@@ -74,13 +74,14 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
             if (isPlaying) player.current.play()
             else player.current.pause()
         }
+        //eslint-disable-next-line
     }, [isPlaying])
 
     useEffect(() => {
-        console.log('song ended changed: ', player.current)
         if (player.current && player.current.songEnded) {
             dispatch(changeTrack(1))
         }
+        //eslint-disable-next-line
     }, [player.current?.songEnded])
 
     useEffect(() => {

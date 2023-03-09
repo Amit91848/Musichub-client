@@ -1,6 +1,4 @@
-import { changeTrack } from "@/store/reducers/player";
-import { useAppDispatch } from "@/store/store";
-
+/* eslint-disable no-console */
 import { fetchAccessToken } from ".";
 
 const jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I2YjNjOTg4OTdlOGRlYjE5ZTc0YzIiLCJpYXQiOjE2NzI5MjM0MjYsImV4cCI6MTY3NTUxNTQyNn0.aT7seVEkhYwKJ4IBeWhq_D2v74kPN_nDLR9rqbW0Zqw'
@@ -94,7 +92,7 @@ export class SpotifyWebPlaybackSDK {
                 position_ms: position
             })
         })
-            .then((response) => this.songEnded = false)
+            .then((_) => this.songEnded = false)
             .catch(error => {
                 console.log('error from play ', error)
             });
@@ -119,7 +117,7 @@ export class SpotifyWebPlaybackSDK {
             headers: new Headers({
                 Authorization: "Bearer " + this.accessToken,
             }),
-        }).then((response) => console.log('connected to device'));
+        }).then((_) => console.log('connected to device'));
     };
 
     addListeners() {

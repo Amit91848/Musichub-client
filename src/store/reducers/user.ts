@@ -38,6 +38,7 @@ const userSlice = createSlice({
     name: 'user',
     reducers: {
         updateUser: (state, action) => {
+            //eslint-disable-next-line
             console.log(action)
         }
     }

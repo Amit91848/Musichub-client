@@ -8,9 +8,9 @@ import SpotifyPlayer from './SpotifyPlayer'
 import { SpotifyWebPlaybackSDK } from './utils/SpotifyWebPlaybackSDK'
 import YoutubePlayer from './YoutubePlayer'
 
-interface PlayerProps {}
+// interface PlayerProps {}
 
-export const Player: React.FC<PlayerProps> = ({}) => {
+export const Player: React.FC = () => {
     const { shuffleEnabled, currentTrack, isPlaying, volume, duration } =
         useSelector((state: RootState) => state.player)
     const [inputSeekPosition, setInputSeekPosition] = useState(0)
@@ -24,7 +24,7 @@ export const Player: React.FC<PlayerProps> = ({}) => {
         const { source } = currentTrack
 
         if (source === 'spotify') {
-            console.log('spotifyplayer in player: ', spotifyPlayer)
+            // console.log('spotifyplayer in player: ', spotifyPlayer)
             spotifyPlayer.current?.seek(newTime)
         } else if (source === 'youtube') {
             youtubePlayer.current?.seekTo(newTime / 1000, true)
@@ -43,7 +43,6 @@ export const Player: React.FC<PlayerProps> = ({}) => {
             </div>
             <div className='absolute bottom-0 z-10 mt-3 w-full bg-dark'>
                 <PlayerUI
-                    // updateSongPosition={updateSongPosition}
                     inputSeekPosition={inputSeekPosition}
                     setInputSeekPosition={setInputSeekPosition}
                     shuffleEnabled={shuffleEnabled}
@@ -53,7 +52,6 @@ export const Player: React.FC<PlayerProps> = ({}) => {
                     spotifyRef={spotifyPlayer}
                     currentTrack={currentTrack}
                     isPlaying={isPlaying}
-                    // songPosition={songPosition}
                 />
             </div>
         </>

@@ -1,8 +1,6 @@
 import React from 'react'
 
-interface ModalProps {}
-
-export const Modal: React.FC<ModalProps> = ({}) => {
+export const Modal: React.FC = () => {
     return (
         <div>
             <input type='checkbox' id='my-modal-5' className='modal-toggle' />

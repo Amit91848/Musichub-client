@@ -23,8 +23,8 @@ export const fetchAccessToken = async (jwt: string): Promise<string> => {
     return token.data;
 }
 
-export const getDeviceId = async (jwt: string): Promise<string> => {
-    const deviceId = createInstanceWithBearer(jwt);
+export const getDeviceId = async (_: string): Promise<string> => {
+    // const deviceId = createInstanceWithBearer(jwt);
     return 'abc';
 
 }

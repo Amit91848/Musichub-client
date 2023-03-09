@@ -3,6 +3,7 @@ import { IconType } from 'react-icons'
 import { ImSpinner2 } from 'react-icons/im'
 
 import clsxm from '@/lib/clsxm'
+
 import { service } from '@/constant/services'
 
 const ButtonVariant = ['primary', 'outline', 'ghost', 'light', 'dark'] as const
@@ -30,7 +31,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             variant = 'primary',
             size = 'base',
             source,
-            isDarkBg = false,
+            // isDarkBg = false,
             leftIcon: LeftIcon,
             rightIcon: RightIcon,
             leftIconClassName,

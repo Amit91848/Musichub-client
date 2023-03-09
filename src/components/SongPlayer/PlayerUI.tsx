@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AiOutlinePause } from 'react-icons/ai'
 import { BiRepeat, BiShuffle, BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
 import { BsFillPlayFill } from 'react-icons/bs'
@@ -59,6 +59,7 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
         dispatch(toggleShuffle())
     }
 
+    // eslint-disable-next-line
     const handleEmptyQueue = () => {
         dispatch(emptyQueue())
     }
