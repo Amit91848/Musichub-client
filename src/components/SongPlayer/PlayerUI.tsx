@@ -21,12 +21,18 @@ interface PlayerUIProps {
     inputSeekPosition: number
     setInputSeekPosition: React.Dispatch<React.SetStateAction<number>>
     handleSeek: (position: number) => void
+    setIsUserSeeking: React.Dispatch<React.SetStateAction<boolean>>
+    isUserSeeking: boolean
+    songPosition: number
 }
 
 export const PlayerUI: React.FC<PlayerUIProps> = ({
     inputSeekPosition,
     setInputSeekPosition,
     handleSeek,
+    setIsUserSeeking,
+    isUserSeeking,
+    songPosition,
 }) => {
     const { currentTrack, isPlaying, shuffleEnabled, duration } = useSelector(
         (state: RootState) => state.player
@@ -68,9 +74,11 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
             <PositionSeek
                 seekPosition={inputSeekPosition}
                 setSeekPosition={setInputSeekPosition}
-                // updateSongPosition={updateSongPosition}
-                // duration={duration}
+                songPosition={songPosition}
+                duration={duration}
                 handleSeek={handleSeek}
+                isUserSeeking={isUserSeeking}
+                setIsUserSeeking={setIsUserSeeking}
             />
             <div className='flex items-center gap-3 overflow-hidden whitespace-nowrap p-1'>
                 <div
@@ -106,7 +114,9 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
                         <BiShuffle size={20} />
                     )}
                 </button>
-                <div className='text-xs font-light text-lightSupport'></div>
+                <div className='text-xs font-light text-lightSupport'>
+                    {millisToMinutesAndSeconds(songPosition)}
+                </div>
                 <div className='flex items-center justify-center rounded-full border'>
                     <button onClick={previousTrack}>
                         <BiSkipPrevious size={30} />

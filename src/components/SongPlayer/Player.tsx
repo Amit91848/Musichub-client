@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/store/store'
@@ -11,16 +11,16 @@ import YoutubePlayer from './YoutubePlayer'
 // interface PlayerProps {}
 
 export const Player: React.FC = () => {
-    const { shuffleEnabled, currentTrack, isPlaying, volume, duration } =
-        useSelector((state: RootState) => state.player)
+    const { shuffleEnabled, currentTrack, isPlaying, volume } = useSelector(
+        (state: RootState) => state.player
+    )
     const [inputSeekPosition, setInputSeekPosition] = useState(0)
+    const [songPosition, setSongPosition] = useState(0)
+    const [isUserSeeking, setIsUserSeeking] = useState<boolean>(false)
     const spotifyPlayer = useRef<SpotifyWebPlaybackSDK | null>(null)
     const youtubePlayer = useRef<YT.Player>()
 
-    const handleSeek = (value: number) => {
-        const seconds = duration / 100
-        // Time in milliseconds
-        const newTime = Math.round(value * seconds)
+    const handleSeek = (newTime: number) => {
         const { source } = currentTrack
 
         if (source === 'spotify') {
@@ -29,6 +29,31 @@ export const Player: React.FC = () => {
             youtubePlayer.current?.seekTo(newTime / 1000, true)
         }
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (isPlaying) {
+                if (currentTrack.source === 'spotify') {
+                    if (spotifyPlayer.current) {
+                        setSongPosition(spotifyPlayer.current.getPosition())
+                    }
+                } else if (currentTrack.source === 'youtube') {
+                    if (youtubePlayer.current) {
+                        setSongPosition(
+                            Math.round(
+                                youtubePlayer.current?.getCurrentTime() * 1000
+                            )
+                        )
+                    }
+                }
+            }
+        }, 500)
+
+        return () => {
+            clearInterval(interval)
+        }
+        //eslint-disable-next-line
+    }, [isUserSeeking, isPlaying])
 
     return (
         <>
@@ -46,6 +71,9 @@ export const Player: React.FC = () => {
                     setInputSeekPosition={setInputSeekPosition}
                     shuffleEnabled={shuffleEnabled}
                     handleSeek={handleSeek}
+                    isUserSeeking={isUserSeeking}
+                    setIsUserSeeking={setIsUserSeeking}
+                    songPosition={songPosition}
                 />
                 <SpotifyPlayer
                     spotifyRef={spotifyPlayer}

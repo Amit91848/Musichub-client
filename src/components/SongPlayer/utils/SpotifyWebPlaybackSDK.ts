@@ -10,13 +10,14 @@ export class SpotifyWebPlaybackSDK {
     accessToken?: string | null;
     deviceId?: string | null;
     timer?: string | null;
-    position?: number;
+    position: number;
     songEnded?: boolean
 
     constructor(playerName: string, volume: number) {
         this.playerName = playerName;
         this.volume = volume;
         this.accessToken = null;
+        this.position = 0;
 
         this.deviceId = null;
         this.timer = null;
@@ -72,6 +73,16 @@ export class SpotifyWebPlaybackSDK {
             this.position = state.position
         })
         return this.player?.pause()
+    }
+
+    getPosition() {
+        this.player?.getCurrentState().then(state => {
+            if (!state) {
+                return 0;
+            }
+            this.position = state.position;
+        })
+        return this.position;
     }
 
     async seek(position: number) {
