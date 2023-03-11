@@ -15,24 +15,9 @@ export const appendSpotifySDKScriptToDOM = () => {
     document.head.append(spotifyScript)
 }
 
-export const fetchAccessToken = async (jwt: string): Promise<string> => {
-    const tokenInstance = createInstanceWithBearer(jwt);
+export const fetchAccessToken = async (): Promise<string> => {
 
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
-    const token = await tokenInstance.get(`${backendURL}/api/spotify/access_token`, { withCredentials: true });
+    const token = await axios.get(`${backendURL}/api/spotify/access_token`, { withCredentials: true });
     return token.data;
-}
-
-export const getDeviceId = async (_: string): Promise<string> => {
-    // const deviceId = createInstanceWithBearer(jwt);
-    return 'abc';
-
-}
-
-export const createInstanceWithBearer = (jwt: string) => {
-    return axios.create({
-        headers: {
-            'Authorization': `Bearer ${jwt}`
-        }
-    })
 }

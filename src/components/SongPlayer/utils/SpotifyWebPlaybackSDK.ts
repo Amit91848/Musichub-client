@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 import { fetchAccessToken } from ".";
 
-const jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I2YjNjOTg4OTdlOGRlYjE5ZTc0YzIiLCJpYXQiOjE2NzI5MjM0MjYsImV4cCI6MTY3NTUxNTQyNn0.aT7seVEkhYwKJ4IBeWhq_D2v74kPN_nDLR9rqbW0Zqw'
-
 export class SpotifyWebPlaybackSDK {
     playerName: string
     volume: number;
@@ -27,7 +25,7 @@ export class SpotifyWebPlaybackSDK {
     }
 
     async fetchToken() {
-        const token = await fetchAccessToken(jwt);
+        const token = await fetchAccessToken();
         return token;
     }
 
