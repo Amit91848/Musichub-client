@@ -8,6 +8,7 @@ interface YoutubePlayerProps {
     isPlaying: boolean
     volume: number
     forwardRef: React.MutableRefObject<YT.Player | undefined>
+    handleOnEnd: () => void
 }
 
 export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
@@ -15,11 +16,16 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
     isPlaying,
     volume,
     forwardRef,
+    handleOnEnd,
 }) => {
     const [videoId, setVideoId] = useState<string | undefined>(undefined)
     const player = useRef<YT.Player>()
 
-    // const onStateChange: YouTubeProps['onStateChange'] = (event) => {}
+    const onStateChange: YouTubeProps['onStateChange'] = (event) => {
+        if (event.data === YT.PlayerState.ENDED) {
+            handleOnEnd()
+        }
+    }
 
     const opts: YouTubeProps['opts'] = {
         height: '390',
@@ -69,7 +75,7 @@ export const YoutubePlayer: React.FC<YoutubePlayerProps> = ({
             videoId={videoId}
             opts={opts}
             onReady={onPlayerReady}
-            // onStateChange={onStateChange}
+            onStateChange={onStateChange}
         />
     )
 }

@@ -137,6 +137,7 @@ const player = createSlice({
                 return state = {
                     ...state,
                     userQueueIndex: userQueueIndex + 1,
+                    allowAutoplay: false,
                     duration: nextTrack.duration,
                     isPlaying: true,
                     currentTrack: { ...nextTrack },
@@ -186,9 +187,15 @@ const player = createSlice({
                 ...state,
                 volume: action.payload
             }
+        },
+        toggleAutoPlay: (state) => {
+            return state = {
+                ...state,
+                allowAutoplay: !state.allowAutoplay
+            }
         }
     }
 })
 
-export const { play, changeTrack, toggleShuffle, addToQueue, emptyQueue, handlePlayPause, updateVolume } = player.actions
+export const { play, changeTrack, toggleShuffle, addToQueue, emptyQueue, handlePlayPause, updateVolume, toggleAutoPlay } = player.actions
 export default player.reducer

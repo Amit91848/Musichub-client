@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 
 import {
     changeTrack,
-    emptyQueue,
     handlePlayPause,
+    toggleAutoPlay,
     toggleShuffle,
 } from '@/store/reducers/player'
 import { RootState, useAppDispatch } from '@/store/store'
@@ -34,9 +34,8 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
     isUserSeeking,
     songPosition,
 }) => {
-    const { currentTrack, isPlaying, shuffleEnabled, duration } = useSelector(
-        (state: RootState) => state.player
-    )
+    const { currentTrack, isPlaying, shuffleEnabled, duration, allowAutoplay } =
+        useSelector((state: RootState) => state.player)
     function millisToMinutesAndSeconds(millis: number) {
         const minutes = Math.floor(millis / 60000)
         const seconds = parseInt(((millis % 60000) / 1000).toFixed(0))
@@ -65,10 +64,10 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
         dispatch(toggleShuffle())
     }
 
-    // eslint-disable-next-line
-    const handleEmptyQueue = () => {
-        dispatch(emptyQueue())
+    const handleAutoPlay = () => {
+        dispatch(toggleAutoPlay())
     }
+
     return (
         <div className='grid h-20 w-full grid-cols-3 items-center space-x-5 px-2 text-white'>
             <PositionSeek
@@ -108,11 +107,10 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
             </div>
             <div className='flex items-center space-x-4'>
                 <button onClick={handleShuffle}>
-                    {shuffleEnabled ? (
-                        <BiShuffle size={20} />
-                    ) : (
-                        <BiShuffle size={20} />
-                    )}
+                    <BiShuffle
+                        size={20}
+                        color={shuffleEnabled ? '#eab308' : '#fff'}
+                    />
                 </button>
                 <div className='text-xs font-light text-lightSupport'>
                     {millisToMinutesAndSeconds(songPosition)}
@@ -142,7 +140,11 @@ export const PlayerUI: React.FC<PlayerUIProps> = ({
                     {millisToMinutesAndSeconds(duration)}
                 </div>
                 <button>
-                    <BiRepeat size={20} />
+                    <BiRepeat
+                        color={allowAutoplay ? '#eab308' : '#FFF'}
+                        size={20}
+                        onClick={handleAutoPlay}
+                    />
                 </button>
             </div>
             <div className='flex items-center justify-self-end'>

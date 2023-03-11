@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-import { changeTrack } from '@/store/reducers/player'
-import { RootState, useAppDispatch } from '@/store/store'
+import { RootState } from '@/store/store'
 
 import { CommonTracks } from '@/constant/services'
 
@@ -12,19 +11,18 @@ import { SpotifyWebPlaybackSDK } from './utils/SpotifyWebPlaybackSDK'
 interface PlayerContainerProps {
     currentTrack: CommonTracks
     isPlaying: boolean
-    // songPosition: number
     spotifyRef: React.MutableRefObject<SpotifyWebPlaybackSDK | null>
+    handleOnEnd: () => void
 }
 
 export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
     currentTrack,
     isPlaying,
-    // songPosition,
     spotifyRef,
+    handleOnEnd,
 }) => {
     useSpotifyWebPlaybackSDKScript()
 
-    const dispatch = useAppDispatch()
     const player = useRef<SpotifyWebPlaybackSDK | null>(null)
 
     const { volume } = useSelector((state: RootState) => state.player)
@@ -80,7 +78,7 @@ export const SpotifyPlayer: React.FC<PlayerContainerProps> = ({
 
     useEffect(() => {
         if (player.current && player.current.songEnded) {
-            dispatch(changeTrack(1))
+            handleOnEnd()
         }
         //eslint-disable-next-line
     }, [player.current?.songEnded])

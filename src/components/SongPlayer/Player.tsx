@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@/store/store'
+import { changeTrack } from '@/store/reducers/player'
+import { RootState, useAppDispatch } from '@/store/store'
 
 import PlayerUI from './PlayerUI'
 import SpotifyPlayer from './SpotifyPlayer'
@@ -11,14 +12,15 @@ import YoutubePlayer from './YoutubePlayer'
 // interface PlayerProps {}
 
 export const Player: React.FC = () => {
-    const { shuffleEnabled, currentTrack, isPlaying, volume } = useSelector(
-        (state: RootState) => state.player
-    )
+    const { shuffleEnabled, currentTrack, isPlaying, volume, allowAutoplay } =
+        useSelector((state: RootState) => state.player)
     const [inputSeekPosition, setInputSeekPosition] = useState(0)
     const [songPosition, setSongPosition] = useState(0)
     const [isUserSeeking, setIsUserSeeking] = useState<boolean>(false)
     const spotifyPlayer = useRef<SpotifyWebPlaybackSDK | null>(null)
     const youtubePlayer = useRef<YT.Player>()
+
+    const dispatch = useAppDispatch()
 
     const handleSeek = (newTime: number) => {
         const { source } = currentTrack
@@ -27,6 +29,14 @@ export const Player: React.FC = () => {
             spotifyPlayer.current?.seek(newTime)
         } else if (source === 'youtube') {
             youtubePlayer.current?.seekTo(newTime / 1000, true)
+        }
+    }
+
+    const handleOnEnd = () => {
+        if (allowAutoplay) {
+            handleSeek(0)
+        } else {
+            dispatch(changeTrack(1))
         }
     }
 
@@ -53,7 +63,7 @@ export const Player: React.FC = () => {
             clearInterval(interval)
         }
         //eslint-disable-next-line
-    }, [isUserSeeking, isPlaying])
+    }, [isUserSeeking, isPlaying, currentTrack])
 
     return (
         <>
@@ -63,6 +73,7 @@ export const Player: React.FC = () => {
                     isPlaying={isPlaying}
                     volume={volume}
                     forwardRef={youtubePlayer}
+                    handleOnEnd={handleOnEnd}
                 />
             </div>
             <div className='absolute bottom-0 z-10 mt-3 w-full bg-dark'>
@@ -79,6 +90,7 @@ export const Player: React.FC = () => {
                     spotifyRef={spotifyPlayer}
                     currentTrack={currentTrack}
                     isPlaying={isPlaying}
+                    handleOnEnd={handleOnEnd}
                 />
             </div>
         </>
