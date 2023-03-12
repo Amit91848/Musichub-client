@@ -47,7 +47,7 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
     }
     return (
         <Link
-            href={`http://localhost:3000/library/playlist/${source.toLowerCase()}/${
+            href={`/library/playlist/${source.toLowerCase()}/${
                 playlist.playlistId
             }`}
         >
@@ -60,7 +60,9 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
                     />
                     <div
                         style={{
-                            backgroundImage: `url(${playlist.img[0].url})`,
+                            backgroundImage: `url(${
+                                playlist.img[0] ? playlist.img[0].url : ''
+                            })`,
                         }}
                         className='h-28 w-28 rounded-lg border-[2px] border-gray-700  bg-cover bg-center bg-no-repeat group-hover:brightness-75'
                     ></div>

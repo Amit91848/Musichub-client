@@ -1,12 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { source } from "@/constant/services";
 
 export interface initialState {
     // user: {
+    active: source | 'settings'
     spotify: CommonProfile,
     youtube: CommonProfile,
     soundcloud: CommonProfile
     // }
 }
+
+// export interface updateUser {
+//     spotify: 
+// }
 
 export interface CommonProfile {
     isConnected: boolean,
@@ -27,6 +34,7 @@ const commonProfileTemplate: CommonProfile = {
 
 const initialState: initialState = {
     // user: {
+    active: 'settings',
     spotify: { ...commonProfileTemplate },
     soundcloud: { ...commonProfileTemplate },
     youtube: { ...commonProfileTemplate }
@@ -37,12 +45,24 @@ const userSlice = createSlice({
     initialState,
     name: 'user',
     reducers: {
-        updateUser: (state, action) => {
+        updateUser: (state, action: PayloadAction<initialState>) => {
             //eslint-disable-next-line
-            console.log(action)
+            const { soundcloud, spotify, youtube } = action.payload
+            return state = {
+                ...state,
+                spotify: { ...spotify },
+                soundcloud: { ...soundcloud },
+                youtube: { ...youtube }
+            }
+        },
+        updateActive: (state, action: PayloadAction<source | 'settings'>) => {
+            return state = {
+                ...state,
+                active: action.payload
+            }
         }
     }
 })
 
-export const { updateUser } = userSlice.actions;
+export const { updateUser, updateActive } = userSlice.actions;
 export default userSlice.reducer;

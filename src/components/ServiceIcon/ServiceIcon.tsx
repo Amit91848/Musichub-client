@@ -1,11 +1,12 @@
 import React from 'react'
 import { BsSpotify, BsYoutube } from 'react-icons/bs'
 import { FaSoundcloud } from 'react-icons/fa'
+import { CiSettings } from 'react-icons/ci'
 
 import { source } from '@/constant/services'
 
 interface ServiceIconProps {
-    source: source
+    source: source | 'settings'
     size?: number | string | undefined
     className?: string
     disabled?: boolean
@@ -34,6 +35,7 @@ export const ServiceIcon: React.FC<ServiceIconProps> = ({
                     size={Number(size) + 6}
                 />
             )}
+            {source === 'settings' && <CiSettings size={Number(size)} />}
         </div>
     )
 }

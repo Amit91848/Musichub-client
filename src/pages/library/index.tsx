@@ -9,25 +9,23 @@ import { useAppDispatch } from '@/store/store'
 export default function LibraryPage() {
     const dispatch = useAppDispatch()
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
-    const getAllPlaylists = async () => {
-        const res = await axios.get(`${backendURL}/api/playlists`, {
-            withCredentials: true,
-        })
+    const getAllPlaylists = async (sync: boolean | undefined) => {
+        const res = await axios.get(
+            `${backendURL}/api/playlists?sync=${sync}`,
+            {
+                withCredentials: true,
+            }
+        )
 
         dispatch(updatePlaylists(res.data))
     }
     React.useEffect(() => {
-        // async function getUserData() {
-        //     const res = await axios.get(`${backendURL}/api/user`, {
-        //         withCredentials: true,
-        //     })
-        // }
-        // getUserData()
-        // getAllPlaylists()
+        getAllPlaylists(undefined)
+        //eslint-disable-next-line
     }, [])
     return (
         <>
-            <button onClick={getAllPlaylists}> Sync </button>
+            <button onClick={() => getAllPlaylists(true)}> Sync </button>
             <Playlists />
         </>
     )

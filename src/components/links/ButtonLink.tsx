@@ -83,29 +83,17 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
                         variant === 'outline' &&
                             source === 'youtube' && [
                                 'text-white',
-                                'border border-primary-500',
-                                // 'active:bg-primary-100 disabled:bg-primary-100',
-                                // 'hover:bg-primary-50',
-                                // isDarkBg &&
-                                'hover:bg-red-700/40 active:bg-gray-800 disabled:bg-gray-800',
+                                'border-red-600 hover:bg-red-700/30',
                             ],
                         variant === 'outline' &&
                             source === 'spotify' && [
                                 'text-white',
-                                'border border-primary-500',
-                                // 'active:bg-primary-100 disabled:bg-primary-100',
-                                // 'hover:bg-primary-50',
-                                // isDarkBg &&
-                                'hover:bg-green-700/40  active:bg-gray-800 disabled:bg-gray-800',
+                                'border-green-500  hover:bg-green-700/40',
                             ],
                         variant === 'outline' &&
                             source === 'soundcloud' && [
                                 'text-white',
-                                'border border-primary-500',
-                                'active:bg-primary-100 disabled:bg-primary-100',
-                                'hover:bg-primary-50',
-                                isDarkBg &&
-                                    'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
+                                'border-orange-600 hover:bg-orange-700/40',
                             ],
                         variant === 'ghost' && [
                             'text-primary-500',

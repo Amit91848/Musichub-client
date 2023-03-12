@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
@@ -14,6 +15,19 @@ export default function Header() {
         return () => document.removeEventListener('keyup', handleKeyUp)
     }, [searchQuery, router])
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get(`${backendURL}/auth/logout`, {
+                withCredentials: true,
+            })
+            if (response.data.success) {
+                router.push('/login')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <div className='flex h-20 items-center justify-between border-b border-[#383f41] bg-[#151d20] shadow-lg'>
             <div className='ml-4 w-1/3 gap-2'>
@@ -41,7 +55,7 @@ export default function Header() {
                         <a>Settings</a>
                     </li>
                     <li>
-                        <a href={`${backendURL}/auth/logout`}>Logout</a>
+                        <p onClick={handleLogout}>Logout</p>
                     </li>
                 </ul>
             </div>

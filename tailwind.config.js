@@ -35,6 +35,7 @@ module.exports = {
                 textYellow: '#bda356',
                 queueBg: '#232a2d',
                 borderGray: '#383f41',
+                modalMedium: '#1e2629',
             },
             keyframes: {
                 flicker: {

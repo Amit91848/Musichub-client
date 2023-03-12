@@ -27,7 +27,7 @@ export const Source: React.FC<SpotifyProps> = ({ source, playlists }) => {
                 {playlists?.map((playlist) => (
                     <div key={playlist.playlistId}>
                         <Link
-                            href={`http://localhost:3000/library/playlist/${source}/${playlist.playlistId}`}
+                            href={`/library/playlist/${source}/${playlist.playlistId}`}
                         >
                             <SinglePlaylist playlist={playlist} />
                         </Link>

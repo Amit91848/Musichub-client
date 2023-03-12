@@ -33,6 +33,7 @@ export const QueueModal: React.FC<QueueModalProps> = ({
             <ModalHeader
                 setShowQueueModal={setShowQueueModal}
                 heading='Your Queue'
+                type='queue'
             />
             <div className='flex h-full max-h-[515px] w-full flex-col items-center overflow-y-scroll bg-queueBg'>
                 <ModalBody subheading='Currently Playing' type='current' />
