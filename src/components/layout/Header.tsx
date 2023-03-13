@@ -25,7 +25,7 @@ export default function Header() {
                 router.push('/login')
             }
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BsSpotify, BsYoutube } from 'react-icons/bs'
-import { FaSoundcloud } from 'react-icons/fa'
 import { CiSettings } from 'react-icons/ci'
+import { FaSoundcloud } from 'react-icons/fa'
 
 import { source } from '@/constant/services'
 
