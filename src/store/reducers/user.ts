@@ -4,7 +4,7 @@ import { source } from "@/constant/services";
 
 export interface initialState {
     // user: {
-    active: source | 'settings'
+    active: source | 'settings' | 'playlists' | 'queue'
     spotify: CommonProfile,
     youtube: CommonProfile,
     soundcloud: CommonProfile
@@ -55,7 +55,7 @@ const userSlice = createSlice({
                 youtube: { ...youtube }
             }
         },
-        updateActive: (state, action: PayloadAction<source | 'settings'>) => {
+        updateActive: (state, action: PayloadAction<initialState["active"]>) => {
             return state = {
                 ...state,
                 active: action.payload

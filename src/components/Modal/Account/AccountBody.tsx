@@ -30,7 +30,11 @@ export const AccountBody: React.FC = () => {
     }
     return (
         <div className='px-10 pb-16'>
-            <AccountInfo active={active} profile={profile} />
+            {(active === 'soundcloud' ||
+                active === 'spotify' ||
+                active === 'youtube') && (
+                <AccountInfo active={active} profile={profile} />
+            )}
         </div>
     )
 }

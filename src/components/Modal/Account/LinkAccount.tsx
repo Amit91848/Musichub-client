@@ -28,7 +28,13 @@ export const LinkAccount: React.FC = () => {
                 className='h-11 w-4/6 border py-6 px-4 text-[1px] font-light shadow-2xl'
                 variant='outline'
                 leftIcon={icon}
-                source={active !== 'settings' ? active : 'spotify'}
+                source={
+                    active === 'soundcloud' ||
+                    active === 'spotify' ||
+                    active === 'youtube'
+                        ? active
+                        : 'spotify'
+                }
             >
                 Connect to {active.charAt(0).toUpperCase() + active.slice(1)}
             </ButtonLink>

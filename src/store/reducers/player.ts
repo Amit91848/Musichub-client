@@ -128,7 +128,7 @@ const player = createSlice({
             }
         },
         changeTrack: (state, action: PayloadAction<number>) => {
-            const { index, userQueue, userQueueIndex } = state;
+            const { index, userQueue, userQueueIndex, shuffleEnabled } = state;
 
             // Songs in user queue
             if (userQueueIndex < userQueue.length && action.payload === 1) {
@@ -144,10 +144,17 @@ const player = createSlice({
                 }
             }
 
-            // No songs in user queue or prev track
-            const changeTo = (index + action.payload + state.queue.length) % state.queue.length;
-            const newTrack = state.queue[changeTo];
 
+            let changeTo: number;
+
+
+            // No songs in user queue or prev track
+            if (shuffleEnabled) {
+                changeTo = Math.floor(Math.random() * state.queue.length);
+            } else {
+                changeTo = (index + action.payload + state.queue.length) % state.queue.length;
+            }
+            const newTrack = state.queue[changeTo];
             return state = {
                 ...state,
                 index: changeTo,
@@ -155,6 +162,7 @@ const player = createSlice({
                 currentTrack: { ...newTrack },
                 duration: newTrack.duration
             }
+
         },
         toggleShuffle: (state) => {
             return state = {

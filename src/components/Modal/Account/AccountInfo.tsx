@@ -13,7 +13,7 @@ import UnlinkAccount from './UnlinkAccount'
 
 interface AccountInfoProps {
     profile: CommonProfile | undefined
-    active: source | 'settings'
+    active: source
 }
 
 export const AccountInfo: React.FC<AccountInfoProps> = ({
@@ -50,8 +50,14 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({
                 </div>
             </div>
             <ModalPlaylist active={active} />
-            {!profile?.isConnected && active !== 'settings' && <LinkAccount />}
-            {profile?.isConnected && active !== 'settings' && <UnlinkAccount />}
+            {!profile?.isConnected &&
+                (active === 'soundcloud' ||
+                    active === 'spotify' ||
+                    active === 'youtube') && <LinkAccount />}
+            {profile?.isConnected &&
+                (active === 'soundcloud' ||
+                    active === 'spotify' ||
+                    active === 'youtube') && <UnlinkAccount />}
         </>
     )
 }

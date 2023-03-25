@@ -7,6 +7,7 @@ import {
 import { MdQueueMusic } from 'react-icons/md'
 
 import { updateVolume } from '@/store/reducers/player'
+import { updateActive } from '@/store/reducers/user'
 import { useAppDispatch } from '@/store/store'
 
 import QueueModal from './QueueModal'
@@ -20,6 +21,11 @@ export const VolumeController: React.FC = () => {
     const [showQueueModal, setShowQueueModal] = useState(false)
     const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVolume(Number(e.target.value))
+    }
+
+    const handleQueueClick = () => {
+        setShowQueueModal(!showQueueModal)
+        dispatch(updateActive('queue'))
     }
 
     const handleUpdateVolume = () => {
@@ -45,7 +51,7 @@ export const VolumeController: React.FC = () => {
                 <MdQueueMusic
                     className='cursor-pointer hover:text-yellow-500/80'
                     size={23}
-                    onClick={() => setShowQueueModal(!showQueueModal)}
+                    onClick={handleQueueClick}
                 />
             </div>
             <div className='group flex items-center space-x-3'>

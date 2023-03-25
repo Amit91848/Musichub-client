@@ -1,8 +1,7 @@
+import axios from 'axios'
 import React from 'react'
 import { MdNoAccounts } from 'react-icons/md'
 import { useSelector } from 'react-redux'
-
-import ButtonLink from '@/components/links/ButtonLink'
 
 import { RootState } from '@/store/store'
 
@@ -12,18 +11,38 @@ import { RootState } from '@/store/store'
 
 export const UnlinkAccount: React.FC = () => {
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
-    const { active } = useSelector((state: RootState) => state.user)
+    const { active, soundcloud, youtube, spotify } = useSelector(
+        (state: RootState) => state.user
+    )
+
+    const canUserSafelyRemove = () => {
+        const connectedAccount = [
+            soundcloud.isConnected,
+            youtube.isConnected,
+            spotify.isConnected,
+        ].filter(Boolean)
+        if (connectedAccount.length === 1) return false
+        return true
+    }
+
+    const handleRemoveAccount = async () => {
+        if (canUserSafelyRemove()) {
+            await axios.get(
+                `${backendURL}/api/user/remove?provider=${active}`,
+                { withCredentials: true }
+            )
+        }
+    }
+
     return (
         <div className='mt-7 flex justify-center'>
-            <ButtonLink
-                source='youtube'
-                className='h-11 border py-3 px-4 text-[1px] font-light shadow-2xl'
-                href={`${backendURL}/api/user/remove?provider=${active}`}
-                leftIcon={MdNoAccounts}
-                variant='outline'
+            <button
+                className='flex h-11 w-fit items-center gap-3 border border-red-900 bg-red-900/30 py-3 px-4 font-light shadow-2xl transition duration-300 hover:scale-105'
+                onClick={handleRemoveAccount}
             >
-                Remove Account
-            </ButtonLink>
+                {' '}
+                <MdNoAccounts size={25} /> Remove Account
+            </button>
         </div>
     )
 }
