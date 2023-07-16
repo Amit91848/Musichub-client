@@ -80,8 +80,9 @@ export const SearchTracks: React.FC<SpotifySearchTracksProps> = ({
             </div>
             <div className='flex flex-col space-y-2'>
                 {!isLoading ? (
-                    tracks?.map((track) => (
+                    tracks?.map((track, index) => (
                         <Track
+                            index={index}
                             handlePlay={handlePlay}
                             isActive={currentTrack.id === track.id}
                             track={track}

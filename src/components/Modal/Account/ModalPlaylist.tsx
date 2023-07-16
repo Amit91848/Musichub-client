@@ -32,7 +32,7 @@ export const ModalPlaylist: React.FC<ModalPlaylistProps> = ({ active }) => {
     }
     return (
         <div className='mt-5'>
-            <div className='border-b border-b-borderGray px-5 pb-2 text-xl'>
+            <div className='border-b border-b-borderGray px-5 pb-2 text-xl '>
                 Your {active.charAt(0).toUpperCase() + active.slice(1)} Playlist
             </div>
             <div className='mt-3'>

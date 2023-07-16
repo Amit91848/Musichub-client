@@ -6,11 +6,12 @@ import { RootState } from '@/store/store'
 
 import AccountInfo from './AccountInfo'
 
-// interface AccountBodyProps {
-// }
+interface AccountBodyProps {
+    active: string
+}
 
-export const AccountBody: React.FC = () => {
-    const { soundcloud, spotify, youtube, active } = useSelector(
+export const AccountBody: React.FC<AccountBodyProps> = ({ active }) => {
+    const { soundcloud, spotify, youtube } = useSelector(
         (state: RootState) => state.user
     )
     let profile: CommonProfile | undefined

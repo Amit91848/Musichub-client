@@ -17,12 +17,14 @@ interface TrackProps {
     track: CommonTracks
     isActive: boolean
     handlePlay?: (track: CommonTracks) => void
+    index: number
 }
 
 export const Track: React.FC<TrackProps> = ({
     track,
     isActive,
     handlePlay,
+    index,
 }) => {
     let url = ''
     if (track.img[2]) {
@@ -31,7 +33,7 @@ export const Track: React.FC<TrackProps> = ({
 
     const dispatch = useAppDispatch()
     function millisToMinutesAndSeconds(millis: number) {
-        const minutes = Math.floor(millis / 60000)
+        const minutes = Math.floor((millis + index - index) / 60000)
         const seconds = parseInt(((millis % 60000) / 1000).toFixed(0))
         return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
     }
@@ -120,7 +122,10 @@ export const Track: React.FC<TrackProps> = ({
                     </a>
                 </div>
                 <div className='cursor-pointer'>
-                    <Dropdown handleAddToQueue={handleAddToQueue} />
+                    <Dropdown
+                        track={track}
+                        handleAddToQueue={handleAddToQueue}
+                    />
                 </div>
                 <div className=' text-sm'>
                     <div>{millisToMinutesAndSeconds(track.duration)}</div>

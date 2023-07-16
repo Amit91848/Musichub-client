@@ -118,8 +118,9 @@ export const ArtistContainer: React.FC = () => {
             <div>
                 <div className='text-2xl'>{artistName}'s Top Tracks</div>
                 <div className='mt-1 w-full border-t'></div>
-                {artistTopTracks?.map((track) => (
+                {artistTopTracks?.map((track, index) => (
                     <Track
+                        index={index}
                         isActive={track.id === currentTrack.id}
                         key={track.id}
                         track={track}
@@ -130,8 +131,9 @@ export const ArtistContainer: React.FC = () => {
             <div>
                 <div className='text-2xl'>{artistName}'s Other Tracks</div>
                 <div className='mt-1 w-full border-t'></div>
-                {artistOtherTracks?.map((track) => (
+                {artistOtherTracks?.map((track, index) => (
                     <Track
+                        index={index}
                         isActive={track.id === currentTrack.id}
                         key={track.id}
                         track={track}

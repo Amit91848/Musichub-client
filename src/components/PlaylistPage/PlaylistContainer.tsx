@@ -91,9 +91,18 @@ export const PlaylistContainer: React.FC = () => {
                     ></div>
                 </div>
                 <div className='ml-6 flex flex-col justify-between '>
-                    <div className=' mt-4 h-[3rem] cursor-pointer whitespace-pre-wrap font-eliteSpecial text-2xl text-light transition duration-300 hover:text-white lg:text-[2.8rem]'>
+                    <a
+                        rel='noreferrer'
+                        target='_blank'
+                        href={
+                            currentPlaylist?.source === 'spotify'
+                                ? `https://open.spotify.com/playlist/${currentPlaylist?.playlistId}`
+                                : `https://youtube.com/playlist?list=${currentPlaylist?.playlistId}`
+                        }
+                        className=' mt-4 h-[3rem] cursor-pointer whitespace-pre-wrap font-eliteSpecial text-2xl text-light transition duration-300 hover:text-white lg:text-[2.8rem]'
+                    >
                         {currentPlaylist?.name}
-                    </div>
+                    </a>
                     <div>
                         <div className=''>{sourceCapital.current} Playlist</div>
                         <div className='text-sm'>
@@ -127,8 +136,9 @@ export const PlaylistContainer: React.FC = () => {
                 </div>
             </div>
             {!isLoading && tracks.length > 0 ? (
-                tracks?.map((track) => (
+                tracks?.map((track, index) => (
                     <Track
+                        index={index}
                         isActive={
                             track.id === currentTrack.id
                             // currentPlaylist.playlistId === playerPlaylist.id

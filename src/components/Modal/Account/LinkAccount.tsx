@@ -7,12 +7,14 @@ import { useSelector } from 'react-redux'
 import ButtonLink from '@/components/links/ButtonLink'
 
 import { RootState } from '@/store/store'
+import { source } from '@/constant/services'
 
-// interface LinkAccountProps
+interface LinkAccountProps {
+    active: source
+}
 
-export const LinkAccount: React.FC = () => {
+export const LinkAccount: React.FC<LinkAccountProps> = ({ active }) => {
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
-    const { active } = useSelector((state: RootState) => state.user)
     const icon: IconType =
         active === 'soundcloud'
             ? FaSoundcloud

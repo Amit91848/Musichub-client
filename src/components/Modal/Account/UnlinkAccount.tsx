@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from '@/store/store'
 
-// interface UnlinkAccountProps {
+import { source } from '@/constant/services'
 
-// }
+interface UnlinkAccountProps {
+    active: source
+}
 
-export const UnlinkAccount: React.FC = () => {
+export const UnlinkAccount: React.FC<UnlinkAccountProps> = ({ active }) => {
     const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL
-    const { active, soundcloud, youtube, spotify } = useSelector(
+    const { soundcloud, youtube, spotify } = useSelector(
         (state: RootState) => state.user
     )
 

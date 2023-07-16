@@ -23,7 +23,7 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({
     const img = profile?.image === '' ? '/images/account.png' : profile?.image
     return (
         <>
-            <div className='flex items-center justify-between gap-3 py-6'>
+            <div className='flex items-center justify-between gap-3 py-6 '>
                 <div
                     style={{ backgroundImage: `url(${img})` }}
                     className='h-16 w-16 min-w-[4rem] rounded-lg bg-cover bg-center bg-no-repeat'
@@ -53,11 +53,11 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({
             {!profile?.isConnected &&
                 (active === 'soundcloud' ||
                     active === 'spotify' ||
-                    active === 'youtube') && <LinkAccount />}
+                    active === 'youtube') && <LinkAccount active={active} />}
             {profile?.isConnected &&
                 (active === 'soundcloud' ||
                     active === 'spotify' ||
-                    active === 'youtube') && <UnlinkAccount />}
+                    active === 'youtube') && <UnlinkAccount active={active} />}
         </>
     )
 }

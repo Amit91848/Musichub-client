@@ -9,9 +9,14 @@ import SinglePlaylist from './SinglePlaylist'
 interface SpotifyProps {
     source: 'youtube' | 'spotify' | 'soundcloud'
     playlists: CommonPlaylist[]
+    link?: boolean
 }
 
-export const Source: React.FC<SpotifyProps> = ({ source, playlists }) => {
+export const Source: React.FC<SpotifyProps> = ({
+    source,
+    playlists,
+    link = true,
+}) => {
     if (playlists.length === 0) {
         return <div></div>
     } else {
@@ -26,11 +31,15 @@ export const Source: React.FC<SpotifyProps> = ({ source, playlists }) => {
             >
                 {playlists?.map((playlist) => (
                     <div key={playlist.playlistId}>
-                        <Link
-                            href={`/library/playlist/${source}/${playlist.playlistId}`}
-                        >
-                            <SinglePlaylist playlist={playlist} />
-                        </Link>
+                        {link ? (
+                            <Link
+                                href={`/library/playlist/${source}/${playlist.playlistId}`}
+                            >
+                                <SinglePlaylist playlist={playlist} />
+                            </Link>
+                        ) : (
+                            <SinglePlaylist link={false} playlist={playlist} />
+                        )}
                     </div>
                 ))}
             </div>

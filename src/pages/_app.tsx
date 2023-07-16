@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import '@/styles/globals.css'
+import '@/styles/customStyle.css'
 
 import Layout from '@/components/layout/Layout'
 

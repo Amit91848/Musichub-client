@@ -6,11 +6,17 @@ import { MdQueueMusic } from 'react-icons/md'
 import { updateActive } from '@/store/reducers/user'
 import { useAppDispatch } from '@/store/store'
 
+import { CommonTracks } from '@/constant/services'
+
 interface DropdownProps {
     handleAddToQueue: () => void
+    track: CommonTracks
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ handleAddToQueue }) => {
+export const Dropdown: React.FC<DropdownProps> = ({
+    handleAddToQueue,
+    track,
+}) => {
     const dispatch = useAppDispatch()
     return (
         <div className='dropdown-hover dropdown-end dropdown compact'>
@@ -42,7 +48,14 @@ export const Dropdown: React.FC<DropdownProps> = ({ handleAddToQueue }) => {
                         <label
                             className='relative flex cursor-pointer items-center'
                             htmlFor='my-modal-5'
-                            onClick={() => dispatch(updateActive('playlists'))}
+                            onClick={() => {
+                                dispatch(
+                                    updateActive({
+                                        active: 'playlists',
+                                        track: track,
+                                    })
+                                )
+                            }}
                         >
                             <AiOutlinePlus className='mr-3' size={17} /> Add to
                             playlist
